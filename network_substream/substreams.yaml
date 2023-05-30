@@ -1,0 +1,23 @@
+specVersion: v0.1.0
+package:
+  name: "network_substream"
+  version: v1.0.0
+
+protobuf:
+  files:
+    - block_meta.proto
+  importPaths:
+    - ./proto
+
+binaries:
+  default:
+    type: wasm/rust-v1
+    file: ./target/wasm32-unknown-unknown/release/substreams.wasm
+
+modules:
+  - name: map_block
+    kind: map
+    inputs:
+      - source: sf.ethereum.type.v2.Block
+    output:
+      type: proto:sf.ethereum.block_meta.v1.BlockMeta

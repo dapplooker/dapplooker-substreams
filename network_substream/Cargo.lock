@@ -30,6 +30,12 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "d468802bab17cbc0cc575e9b053f41e72aa36bfa6b7f55e3529ffa43161b97fa"
 
 [[package]]
+name = "base64"
+version = "0.13.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "9e1b586273c5702936fe7b7d6896644d8be71e6314cfe09d3167c95f712589e8"
+
+[[package]]
 name = "bigdecimal"
 version = "0.3.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -432,8 +438,11 @@ name = "network_substream"
 version = "0.1.0"
 dependencies = [
  "prost",
+ "prost-types",
  "substreams",
+ "substreams-entity-change",
  "substreams-ethereum",
+ "thiserror",
 ]
 
 [[package]]
@@ -792,6 +801,17 @@ dependencies = [
  "substreams-macro",
  "thiserror",
  "wee_alloc",
+]
+
+[[package]]
+name = "substreams-entity-change"
+version = "1.1.0"
+source = "git+https://github.com/streamingfast/substreams-entity-change/?branch=develop#205f79592f82fc5576732ef182005b16a51a4515"
+dependencies = [
+ "base64",
+ "prost",
+ "prost-types",
+ "substreams",
 ]
 
 [[package]]

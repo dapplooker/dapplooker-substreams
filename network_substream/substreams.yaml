@@ -21,3 +21,26 @@ modules:
       - source: sf.ethereum.type.v2.Block
     output:
       type: proto:sf.ethereum.block_meta.v1.BlockMeta
+
+  - name: map_trx
+    kind: map
+    inputs:
+      - source: sf.ethereum.type.v2.Block
+    output:
+      type: proto:block_meta:TranDetails
+
+  - name: store_tran_details
+    kind: store
+    initialBlock: 12272146
+    updatePolicy: set
+    valueType: proto:block_meta:TranDetails
+    inputs:
+      - map: map_trx
+
+  - name: graph_out
+    kind: map
+    initialBlock: 12272146
+    inputs:
+      - source: sf.ethereum.type.v2.Block
+    output:
+      type: proto:sf.ethereum.block_meta.v1.BlockMeta

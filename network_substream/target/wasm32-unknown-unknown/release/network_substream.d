@@ -1,1 +1,0 @@
-/home/harshrjjpt/Desktop/DappLooker/dapplooker-substreams/substreams/network_substream/target/wasm32-unknown-unknown/release/network_substream.wasm: /home/harshrjjpt/Desktop/DappLooker/dapplooker-substreams/substreams/network_substream/src/main.rs

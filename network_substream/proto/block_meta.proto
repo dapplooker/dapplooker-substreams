@@ -1,10 +1,22 @@
 syntax = "proto3";
 
-package sf.ethereum.block_meta.v1;
+package acme;
 
-message BlockMeta {
-  string hash = 1;
-  uint64 number = 2;
-  string parent_hash = 3;
-  string timestamp = 4;
+message BigInt {
+  bytes bytes = 1;
+}
+
+message TranasactionList {
+  repeated TranDetail transaction_details_list = 1;
+}
+
+message TranDetail {
+  string from_address = 1;
+  string to_address = 2;
+  uint64 gas_used = 3;
+  string status = 4;
+  bytes block_hash = 5;
+  uint32 index = 6;
+  uint64 begin_ordinal = 7;
+  uint64 end_ordinal = 8;
 }

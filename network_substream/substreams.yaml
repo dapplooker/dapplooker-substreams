@@ -15,25 +15,19 @@ binaries:
     file: ./target/wasm32-unknown-unknown/release/substreams.wasm
 
 modules:
-  - name: map_block
-    kind: map
-    inputs:
-      - source: sf.ethereum.type.v2.Block
-    output:
-      type: proto:sf.ethereum.block_meta.v1.BlockMeta
-
   - name: map_trx
     kind: map
+    initialBlock: 7710671
     inputs:
       - source: sf.ethereum.type.v2.Block
     output:
-      type: proto:block_meta:TranDetails
+      type: proto:block_meta.TranasactionList
 
-  - name: store_tran_details
+  - name: store_price
     kind: store
     initialBlock: 12272146
     updatePolicy: set
-    valueType: proto:block_meta:TranDetails
+    valueType: proto:block_meta.TranasactionList
     inputs:
       - map: map_trx
 
@@ -41,6 +35,6 @@ modules:
     kind: map
     initialBlock: 12272146
     inputs:
-      - source: sf.ethereum.type.v2.Block
+      - map: map_trx
     output:
-      type: proto:sf.ethereum.block_meta.v1.BlockMeta
+      type: proto:sf.substreams.entity.v1.EntityChanges

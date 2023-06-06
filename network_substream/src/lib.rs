@@ -22,9 +22,9 @@ fn map_trx(blk: eth::Block) -> Result<TranasactionList, substreams::errors::Erro
         if trx.status == TransactionTraceStatus::Succeeded as i32 {
             transaction_details_list.push(TranDetail {
                 // Get the from address.
-           from_address : String::from_utf8(trx.from).unwrap().to_string(),
+        //    from_address : String::from_utf8(trx.from).unwrap().to_string(),
            // Get the to address.
-           to_address : String::from_utf8(trx.to).unwrap().to_string(),
+        //    to_address : String::from_utf8(trx.to).unwrap().to_string(),
            // Get the gas used.
            gas_used : trx.gas_used,
            status : trx.status.to_string(),
@@ -48,7 +48,7 @@ fn store_price(
     transaction_details_list: TranasactionList,
     output: StoreSetRaw) {
     for transaction in transaction_details_list.transaction_details_list{
-        output.set(0, format!("transaction from:{}", &transaction.from_address), &transaction.from_address.to_string())
+        output.set(0, format!("transaction from:{}", &transaction.status), &transaction.status.to_string())
     }
 }
 

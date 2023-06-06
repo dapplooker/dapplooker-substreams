@@ -1,5 +1,9 @@
-type ExampleEntity @entity {
+type Transaction @entity {
   id: ID!
-  block: Bytes!
-  count: BigInt!
+  status: String!
+  gas_used: Int!
+  block_hash: String!
+  index: Int!
+  begin_ordinal: Int!
+  end_ordinal: Int!
 }

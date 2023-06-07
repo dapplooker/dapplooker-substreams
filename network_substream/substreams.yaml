@@ -17,23 +17,23 @@ binaries:
 modules:
   - name: map_trx
     kind: map
-    initialBlock: 7710671
+    initialBlock: 17427020
     inputs:
       - source: sf.ethereum.type.v2.Block
     output:
-      type: proto:block_meta.TranasactionList
+      type: proto:acme.TransactionList
 
   - name: store_price
     kind: store
-    initialBlock: 12272146
+    initialBlock: 17427020
     updatePolicy: set
-    valueType: proto:block_meta.TranasactionList
+    valueType: proto:block_meta.TransactionList
     inputs:
       - map: map_trx
 
   - name: graph_out
     kind: map
-    initialBlock: 12272146
+    initialBlock: 17427020
     inputs:
       - map: map_trx
     output:

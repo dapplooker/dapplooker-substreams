@@ -6,7 +6,7 @@ message BigInt {
   bytes bytes = 1;
 }
 
-message TranasactionList {
+message TransactionList {
   repeated TranDetail transaction_details_list = 1;
 }
 

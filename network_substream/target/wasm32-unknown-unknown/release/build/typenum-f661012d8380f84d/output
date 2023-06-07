@@ -1,3 +1,0 @@
-cargo:rerun-if-changed=build/main.rs
-cargo:rustc-env=TYPENUM_BUILD_CONSTS=/home/harshrjjpt/Desktop/DappLooker/dapplooker-substreams/substreams/network_substream/target/wasm32-unknown-unknown/release/build/typenum-f661012d8380f84d/out/consts.rs
-cargo:rustc-env=TYPENUM_BUILD_OP=/home/harshrjjpt/Desktop/DappLooker/dapplooker-substreams/substreams/network_substream/target/wasm32-unknown-unknown/release/build/typenum-f661012d8380f84d/out/op.rs

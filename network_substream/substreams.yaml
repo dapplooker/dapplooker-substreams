@@ -23,6 +23,14 @@ modules:
     output:
       type: proto:acme.TransactionList
 
+  - name: map_block
+    kind: map
+    initialBlock: 17427020
+    inputs:
+      - source: sf.ethereum.type.v2.Block
+    output:
+      type: proto:acme.BlockHeader
+
   - name: store_price
     kind: store
     initialBlock: 17427020

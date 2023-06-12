@@ -14,19 +14,18 @@ message BlockMeta {
   string timestamp = 4;
 }
 message BlockHeader {
-  bytes parent_hash = 1;
-  bytes uncle_hash = 2;
-  bytes coinbase = 3;
-  bytes state_root = 4;
-  bytes transactions_root = 5;
-  bytes receipt_root = 6;
-  bytes logs_bloom = 7;
-  uint64 number = 8;
-  uint64 gas_limit = 9;
-  uint64 gas_used = 10;
-  bytes extra_data = 11;
-  bytes mix_hash = 12;
-  uint64 nonce = 13;
+  string id = 1;
+  string parentHash = 2;
+  string uncleHash = 3;
+  uint64 nonce = 4;
+  bytes receipt_root = 5;
+  uint64 number = 6;
+  uint64 gasLimit = 7;
+  uint64 gasUsed = 8;
+  int64 timestamp = 9;
+  uint64 size = 10;
+  string difficulty = 11; 
+  string totalDifficulty = 12;
 }
 
 
@@ -44,23 +43,27 @@ message TransactionList {
 
 // ## Transaction Details ##
 message TranDetail {
-  uint64 gas_used = 1;
+  string id = 1;
   string status = 2;
-  bytes block_hash = 3;
-  uint32 index = 4;
-  uint64 begin_ordinal = 5;
-  uint64 end_ordinal = 6;
-  uint64 nonce = 7;
-  uint64 gas_limit = 8;
-  bytes to = 9;
-  bytes input = 10;
-  bytes r = 11;
-  bytes v = 12;
-  bytes s = 13;
-  bytes from = 14;
-  bytes public_key = 15;
-  TransactionReceipt receipt = 16;
-  repeated Call call_details_list = 17;
+  uint64 gasUsed = 3;
+  uint64 gasLimit = 4;
+  uint64 nonce = 5;
+  string to = 6;
+  string from = 7;
+  string maxFeePerGas = 8;
+  string maxPriorityFeePerGas = 9;
+  uint32 index = 10;
+  bytes publicKey = 11;
+  string value = 12;
+  uint64 blockNumber = 13;
+  // uint64 begin_ordinal = 5;
+  // uint64 end_ordinal = 6;
+  // bytes input = 10;
+  // bytes r = 11;
+  // bytes v = 12;
+  // bytes s = 13;
+  // TransactionReceipt receipt = 16;
+  // repeated Call call_details_list = 17;
 }
 
 message Call {

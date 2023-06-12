@@ -6,4 +6,117 @@ type TranDetail @entity {
   index: BigInt!
   begin_ordinal: BigInt!
   end_ordinal: BigInt!
+  nonce: BigInt!
+  gas_limit: BigInt!
+  to: Bytes!
+  input: Bytes!
+  r: Bytes!
+  v: Bytes!
+  statusfom: Bytes!
+  public_key: Bytes!
 }
+
+# type TransactionDetails @entity {
+#   block_hash: Bytes
+#   data: Bytes!
+#   from: Bytes!
+#   hash: Bytes!
+#   to: Bytes!
+#   block_number: BigInt!
+#   block_time: DateTime!
+#   gas_limit: BigInt!
+#   gas_price: BigInt!
+#   gas_used: BigInt!
+#   index: BigInt!
+#   max_fee_per_gas: BigInt!
+#   max_priority_fee_per_gas: BigInt!
+#   nonce: BigInt!
+#   priority_fee_per_gas: BigInt!
+#   success: Boolean!
+#   type: String!
+#   value: Decimal!
+# }
+
+# type Block @entity {
+#   hash: Bytes!
+#   miner: Bytes!
+#   nonce: Bytes!
+#   parent_hash: Bytes!
+#   size: BigInt!
+#   time: DateTime!
+#   total_difficulty
+#   number: BigInt!
+#   base_fee_per_gas: BigInt!
+#   difficulty: BigInt!
+#   gas_limit: Decimal!
+#   gas_used: Decimal!
+# }
+
+# type EthTransfer @entity {
+#   BLOCK_NUMBER: Int!
+#   BLOCK_TIMESTAMP: DateTime! # Replace with appropriate scalar type for timestamp_ntz
+#   ETH_FROM_ADDRESS: String!
+#   ETH_TO_ADDRESS: String!
+#   IDENTIFIER: String!
+#   ORIGIN_FROM_ADDRESS: String!
+#   ORIGIN_FUNCTION_SIGNATURE: String!
+#   ORIGIN_TO_ADDRESS: String!
+#   TX_HASH: String!
+# }
+
+# type TokenTransfer @entity {
+#   _LOG_ID: String!
+#   BLOCK_NUMBER: Int!
+#   BLOCK_TIMESTAMP: DateTime! # Replace with appropriate scalar type for timestamp_ntz
+#   CONTRACT_ADDRESS: String!
+#   FROM_ADDRESS: String!
+#   ORIGIN_FROM_ADDRESS: String!
+#   ORIGIN_FUNCTION_SIGNATURE: String!
+#   ORIGIN_TO_ADDRESS: String!
+#   RAW_AMOUNT: Float!
+#   TO_ADDRESS: String!
+#   TX_HASH: String!
+# }
+
+# type Trace @entity {
+#   BLOCK_NUMBER: Int!
+#   BLOCK_TIMESTAMP: DateTime! # Replace with appropriate scalar type for timestamp_ntz
+#   DATA: JSON! # Replace with appropriate scalar type for object
+#   ERROR_REASON: String!
+#   ETH_VALUE: Float!
+#   FROM_ADDRESS: String!
+#   GAS: Float!
+#   GAS_USED: Float!
+#   IDENTIFIER: String!
+#   INPUT: String!
+#   OUTPUT: String!
+#   SUB_TRACES: Int!
+#   TO_ADDRESS: String!
+#   TRACE_INDEX: Int!
+#   TRACE_STATUS: String!
+#   TX_HASH: String!
+#   TX_STATUS: String!
+#   TYPE: String!
+# }
+
+# type Block @entity {
+#   BLOCK_HEADER_JSON: JSON! # Replace with appropriate scalar type for object
+#   BLOCK_NUMBER: Int!
+#   BLOCK_TIMESTAMP: DateTime! # Replace with appropriate scalar type for timestamp_ntz
+#   BLOCKCHAIN: String!
+#   DIFFICULTY: Int!
+#   EXTRA_DATA: String!
+#   GAS_LIMIT: Int!
+#   GAS_USED: Int!
+#   HASH: String!
+#   MINER: String!
+#   NETWORK: String!
+#   NONCE: Int!
+#   PARENT_HASH: String!
+#   RECEIPTS_ROOT: String!
+#   SHA3_UNCLES: String!
+#   SIZE: Int!
+#   TOTAL_DIFFICULTY: Int!
+#   TX_COUNT: Int!
+#   UNCLE_BLOCKS: JSON! # Replace with appropriate scalar type for variant
+# }

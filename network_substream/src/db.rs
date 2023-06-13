@@ -30,10 +30,6 @@ fn create_transaction_entity(tables: &mut Tables, transaction: &Transaction) {
 }
 
 
-// pub fn register_block(tables: &mut Tables, block: &BlockHeader) {
-//         create_transaction_entity(tables, block);   
-// }
-
 pub fn create_block_entity(tables: &mut Tables, block:&BlockHeader) {
     tables
         .create_row("Block", &block.id)

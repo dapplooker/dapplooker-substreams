@@ -85,14 +85,6 @@ fn process_transaction_trace(trx: eth::TransactionTrace, block: &eth::Block) -> 
     }
 }
 
-//convert bigint to string
-fn bigint_to_string(bigint: Option<substreams_ethereum::pb::eth::v2::BigInt>) -> String {
-    match bigint {
-        Some(value) => format!("{:?}", value),
-        None => "".to_string(),
-    }
-}
-
 
 fn base_64_to_hex<T: std::convert::AsRef<[u8]>>(num:T) -> String {
     let num = hex::encode(&num);

@@ -8,7 +8,7 @@ use crate::tables::Tables;
 use pb::acme::{Transaction, TransactionList, TransactionReceipt, Call, BlockHeader};
 use substreams_ethereum::pb::eth::v2 as eth;
 use substreams_ethereum::pb::eth::v2::TransactionTraceStatus;
-use substreams::store::{StoreNew, StoreSetRaw};
+use substreams::store::{StoreNew, StoreSetRaw, StoreSetProto};
 use substreams_entity_change::pb::entity::EntityChanges;
 use substreams::store::StoreSet;
 use substreams::Hex;
@@ -58,7 +58,9 @@ fn process_transaction_trace(trx: eth::TransactionTrace, block: &eth::Block) -> 
     //         end_ordinal: call.end_ordinal,
     //     }
     // }).collect();
+    let header = block.header.as_ref().unwrap();
     let block_number = block.number;
+    let time_stamp = header.timestamp.clone().unwrap().seconds;
     Transaction {
         id:  base_64_to_hex(trx.hash),
         gasUsed: trx.gas_used,
@@ -73,6 +75,7 @@ fn process_transaction_trace(trx: eth::TransactionTrace, block: &eth::Block) -> 
         // publicKey: trx.public_key,
         value: option_bigint_to_number_string(trx.value),
         blockNumber: block_number,
+        timestamp: time_stamp,
         // receipt: Some(TransactionReceipt {
         //     state_root: trx.receipt.as_ref().map(|r| r.state_root.clone()).unwrap_or_default(),
         //     cumulative_gas_used: trx.receipt.as_ref().map(|r| r.cumulative_gas_used).unwrap_or(0),
@@ -134,15 +137,15 @@ fn map_block(block: eth::Block) -> Result<BlockHeader, substreams::errors::Error
 }
 
 #[substreams::handlers::store]
-fn store_price(transaction_details_list: TransactionList, output: StoreSetRaw) {
+fn store_price(transaction_details_list: TransactionList, store: StoreSetProto<Transaction>) {
     for transaction in transaction_details_list.transaction_details_list {
-        output.set(0, format!("transaction from:{}", &transaction.status), &transaction.status.to_string());
+        store.set(transaction.blockNumber, format!("transaction.id"), &transaction);
     }
 }
 
 #[substreams::handlers::store]
-fn store_block(block: BlockHeader, output: StoreSetRaw) {
-    output.set(0, format!("transaction from:{}", &block.number), &block.number.to_string());
+fn store_block(block: BlockHeader, store: StoreSetProto<BlockHeader>) {
+    store.set( block.number, format!("transaction.id"), &block);
 }
 
 #[substreams::handlers::map]

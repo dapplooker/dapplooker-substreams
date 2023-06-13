@@ -1,55 +1,34 @@
-type TranDetail @entity {
-  id: ID!
-  status: String!
-  gas_used: BigInt!
-  block_hash: Bytes!
-  index: BigInt!
-  begin_ordinal: BigInt!
-  end_ordinal: BigInt!
-  nonce: BigInt!
-  gas_limit: BigInt!
-  to: Bytes!
-  input: Bytes!
-  r: Bytes!
-  v: Bytes!
-  statusfom: Bytes!
-  public_key: Bytes!
-}
-
+#change it to TranactionDetails
+# fields should be in camelCase
 type Block @entity {
-  id: Bytes!
-  nonce: Bytes!
-  parentHash: Bytes!
-  uncleHash: Bytes!
-  size: BigInt!
-  totalDifficulty: BigInt!
+  id: String!
+  parentHash: String!
+  uncleHash: String!
+  nonce: BigInt!
+  receipt_root: BigInt!
   number: BigInt!
-  difficulty: BigInt!
-  gasLimit: Decimal!
-  gasUsed: Decimal!
-  timestamp: DateTime!
+  gasLimit: BigInt!
+  gasUsed: BigInt!
+  timestamp: BigInt!
+  size: BigInt!
+  difficulty: String!
+  totalDifficulty: String!
 }
 
-# type TransactionDetails @entity {
-#   block_hash: Bytes
-#   data: Bytes!
-#   from: Bytes!
-#   hash: Bytes!
-#   to: Bytes!
-#   block_number: BigInt!
-#   block_time: DateTime!
-#   gas_limit: BigInt!
-#   gas_price: BigInt!
-#   gas_used: BigInt!
-#   index: BigInt!
-#   max_fee_per_gas: BigInt!
-#   max_priority_fee_per_gas: BigInt!
-#   nonce: BigInt!
-#   priority_fee_per_gas: BigInt!
-#   success: Boolean!
-#   type: String!
-#   value: Decimal!
-# }
+type Transaction @entity {
+  id: String!
+  status: String!
+  gasUsed: BigInt!
+  gasLimit: BigInt!
+  nonce: BigInt!
+  to: String!
+  from: String!
+  maxFeePerGas: String!
+  maxPriorityFeePerGas: String!
+  index: BigInt!
+  value: String!
+  blockNumber: BigInt!
+}
 
 # type Block @entity {
 #   hash: Bytes!
@@ -133,4 +112,45 @@ type Block @entity {
 #   TOTAL_DIFFICULTY: Int!
 #   TX_COUNT: Int!
 #   UNCLE_BLOCKS: JSON! # Replace with appropriate scalar type for variant
+# }
+
+# ++++++++++++final schema++++++++++
+
+# type Transaction @entity {
+#   id: Bytes!
+#   status: String!
+#   gasUsed: BigInt!
+#   index: BigInt!
+#   nonce: BigInt!
+#   gasLimit: BigInt!
+#   to: Bytes!
+#   from: Bytes!
+#   publicKey: Bytes!
+#   value: BigInt!
+#   maxFeePerGas: BigInt!
+#   maxPriorityFeePerGas: BigInt!
+#   blockNumber: BigInt!
+#   timestamp: DateTime!
+# }
+
+# type Block @entity {
+#   id: Bytes!
+#   nonce: Bytes!
+#   parentHash: Bytes!
+#   uncleHash: Bytes!
+#   size: BigInt!
+#   totalDifficulty: BigInt!
+#   number: BigInt!
+#   difficulty: BigInt!
+#   gasLimit: Decimal!
+#   gasUsed: Decimal!
+#   timestamp: DateTime!
+# }
+
+# type Contract @entity {
+#   address: String!
+#   #contract_metadata:
+#   decimals: Int!
+#   name: String!
+#   symbol: String!
 # }

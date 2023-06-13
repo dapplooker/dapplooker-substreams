@@ -13,7 +13,8 @@ pub fn register_transaction(tables: &mut Tables, transactions: &TransactionList)
 
 fn create_transaction_entity(tables: &mut Tables, transaction: &Transaction) {
     tables
-        .create_row("TranDetail",  &transaction.id)
+        .create_row("Transaction",  &transaction.id)
+        .set("id", &transaction.id)
         .set("status", &transaction.status)
         .set("index",transaction.index)
         .set("gasUsed",  transaction.gasUsed)
@@ -24,7 +25,8 @@ fn create_transaction_entity(tables: &mut Tables, transaction: &Transaction) {
         .set("maxFeePerGas",  transaction.maxFeePerGas.clone())
         .set("maxPriorityFeePerGas",  transaction.maxPriorityFeePerGas.clone())
         .set("blockNumber",  transaction.blockNumber)
-        .set("value",  transaction.value.clone());
+        .set("value",  transaction.value.clone())
+        .set("timestamp",  transaction.timestamp);
 }
 
 
@@ -34,7 +36,7 @@ fn create_transaction_entity(tables: &mut Tables, transaction: &Transaction) {
 
 pub fn create_block_entity(tables: &mut Tables, block:&BlockHeader) {
     tables
-        .create_row("Block", format!("0x{}", &block.id))
+        .create_row("Block", &block.id)
         .set("id", format!("0x{}", &block.id))
         .set("parentHash", &block.parentHash)
         .set("uncleHash", &block.uncleHash)

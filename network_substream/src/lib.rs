@@ -5,7 +5,7 @@ mod tables;
 
 use pb::acme;
 use crate::tables::Tables;
-use pb::acme::{TranDetail, TransactionList, TransactionReceipt, Call, BlockHeader};
+use pb::acme::{Transaction, TransactionList, TransactionReceipt, Call, BlockHeader};
 use substreams_ethereum::pb::eth::v2 as eth;
 use substreams_ethereum::pb::eth::v2::TransactionTraceStatus;
 use substreams::store::{StoreNew, StoreSetRaw};
@@ -35,7 +35,7 @@ fn map_trx(blk: eth::Block) -> Result<TransactionList, substreams::errors::Error
     })
 }
 
-fn process_transaction_trace(trx: eth::TransactionTrace, block: &eth::Block) -> TranDetail {
+fn process_transaction_trace(trx: eth::TransactionTrace, block: &eth::Block) -> Transaction {
     // let call_details_list: Vec<T> = trx.calls.into_iter().map(|call| {
     //     Call {
     //         index: call.index,
@@ -59,7 +59,7 @@ fn process_transaction_trace(trx: eth::TransactionTrace, block: &eth::Block) -> 
     //     }
     // }).collect();
     let block_number = block.number;
-    TranDetail {
+    Transaction {
         id:  base_64_to_hex(trx.hash),
         gasUsed: trx.gas_used,
         status: trx.status.to_string(),
@@ -70,7 +70,7 @@ fn process_transaction_trace(trx: eth::TransactionTrace, block: &eth::Block) -> 
         gasLimit: trx.gas_limit,
         to: base_64_to_hex(trx.to),
         from: base_64_to_hex(trx.from),
-        publicKey: trx.public_key,
+        // publicKey: trx.public_key,
         value: option_bigint_to_number_string(trx.value),
         blockNumber: block_number,
         // receipt: Some(TransactionReceipt {
@@ -129,7 +129,7 @@ fn map_block(block: eth::Block) -> Result<BlockHeader, substreams::errors::Error
         totalDifficulty: option_bigint_to_number_string(header.total_difficulty.clone()) ,
         timestamp: header.timestamp.clone().unwrap().seconds,
         size: block.size,
-        
+
     })
 }
 
@@ -140,9 +140,15 @@ fn store_price(transaction_details_list: TransactionList, output: StoreSetRaw) {
     }
 }
 
+#[substreams::handlers::store]
+fn store_block(block: BlockHeader, output: StoreSetRaw) {
+    output.set(0, format!("transaction from:{}", &block.number), &block.number.to_string());
+}
+
 #[substreams::handlers::map]
-pub fn graph_out(map_trx: TransactionList) -> Result<EntityChanges, substreams::errors::Error> {
+pub fn graph_out(map_trx: TransactionList, map_block: BlockHeader) -> Result<EntityChanges, substreams::errors::Error> {
     let mut tables = Tables::new();
     db::register_transaction(&mut tables, &map_trx);
+    db::create_block_entity(&mut tables, &map_block);
     Ok(tables.to_entity_changes())
 }

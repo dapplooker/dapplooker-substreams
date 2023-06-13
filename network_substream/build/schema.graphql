@@ -16,6 +16,20 @@ type TranDetail @entity {
   public_key: Bytes!
 }
 
+type Block @entity {
+  id: Bytes!
+  nonce: Bytes!
+  parentHash: Bytes!
+  uncleHash: Bytes!
+  size: BigInt!
+  totalDifficulty: BigInt!
+  number: BigInt!
+  difficulty: BigInt!
+  gasLimit: Decimal!
+  gasUsed: Decimal!
+  timestamp: DateTime!
+}
+
 # type TransactionDetails @entity {
 #   block_hash: Bytes
 #   data: Bytes!

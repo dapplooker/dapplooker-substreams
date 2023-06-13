@@ -38,11 +38,11 @@ message TransactionReceipt {
 
 // ## Transaction List ##
 message TransactionList {
-  repeated TranDetail transaction_details_list = 1;
+  repeated Transaction transaction_details_list = 1;
 }
 
 // ## Transaction Details ##
-message TranDetail {
+message Transaction {
   string id = 1;
   string status = 2;
   uint64 gasUsed = 3;
@@ -53,9 +53,9 @@ message TranDetail {
   string maxFeePerGas = 8;
   string maxPriorityFeePerGas = 9;
   uint32 index = 10;
-  bytes publicKey = 11;
-  string value = 12;
-  uint64 blockNumber = 13;
+  // bytes publicKey = 11;
+  string value = 11;
+  uint64 blockNumber = 12;
   // uint64 begin_ordinal = 5;
   // uint64 end_ordinal = 6;
   // bytes input = 10;

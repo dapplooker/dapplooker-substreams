@@ -1,7 +1,3 @@
-use substreams::scalar::BigInt;
-use substreams::store::{ DeltaBigInt, Deltas};
-
-use crate::key;
 use crate::acme::{Transaction, TransactionList, BlockHeader};
 use crate::tables::Tables;
 

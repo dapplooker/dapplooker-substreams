@@ -22,3 +22,7 @@ hex = "0.4"
 lto = true
 opt-level = 'z'
 strip = "debuginfo"
+
+[profile.dev]
+rustc_flags = ["--allow-non-snake-case"]
+

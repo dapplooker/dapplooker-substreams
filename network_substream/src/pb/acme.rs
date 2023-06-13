@@ -17,6 +17,7 @@ pub struct BlockMeta {
     pub timestamp: ::prost::alloc::string::String,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
+#[allow(non_snake_case)]
 pub struct BlockHeader {
     #[prost(string, tag="1")]
     pub id: ::prost::alloc::string::String,
@@ -61,6 +62,7 @@ pub struct TransactionList {
 }
 /// ## Transaction Details ##
 #[derive(Clone, PartialEq, ::prost::Message)]
+#[allow(non_snake_case)]
 pub struct Transaction {
     #[prost(string, tag="1")]
     pub id: ::prost::alloc::string::String,

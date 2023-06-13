@@ -1,18 +1,15 @@
-mod key;
 mod pb;
 mod db;
 mod tables;
 
 use pb::acme;
 use crate::tables::Tables;
-use pb::acme::{Transaction, TransactionList, TransactionReceipt, Call, BlockHeader};
+use pb::acme::{Transaction, TransactionList, BlockHeader};
 use substreams_ethereum::pb::eth::v2 as eth;
 use substreams_ethereum::pb::eth::v2::TransactionTraceStatus;
-use substreams::store::{StoreNew, StoreSetRaw, StoreSetProto};
+use substreams::store::{StoreNew, StoreSetProto};
 use substreams_entity_change::pb::entity::EntityChanges;
 use substreams::store::StoreSet;
-use substreams::Hex;
-use base64;
 use hex;    
 use substreams_ethereum::pb::eth::v2::BigInt;
 

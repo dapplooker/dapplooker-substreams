@@ -6,13 +6,7 @@ message BigInt {
   bytes bytes = 1;
 }
 
-// ## Block data ##
-message BlockMeta {
-  string hash = 1;
-  uint64 number = 2;
-  string parent_hash = 3;
-  string timestamp = 4;
-}
+// ## Block Details ##
 message BlockHeader {
   string id = 1;
   string parentHash = 2;
@@ -26,14 +20,6 @@ message BlockHeader {
   uint64 size = 10;
   string difficulty = 11; 
   string totalDifficulty = 12;
-}
-
-
-// ## Transaction receipt ##
-message TransactionReceipt {
-  bytes state_root = 1;
-  uint64 cumulative_gas_used = 2;
-  bytes logs_bloom = 3;
 }
 
 // ## Transaction List ##
@@ -53,84 +39,7 @@ message Transaction {
   string maxFeePerGas = 8;
   string maxPriorityFeePerGas = 9;
   uint32 index = 10;
-  // bytes publicKey = 11;
   string value = 11;
   uint64 blockNumber = 12;
   int64 timestamp = 13;
-  // uint64 begin_ordinal = 5;
-  // uint64 end_ordinal = 6;
-  // bytes input = 10;
-  // bytes r = 11;
-  // bytes v = 12;
-  // bytes s = 13;
-  // TransactionReceipt receipt = 16;
-  // repeated Call call_details_list = 17;
-}
-
-message Call {
-  uint32 index = 1;
-  uint32 parent_index = 2;
-  uint32 depth = 3;
-  int32 call_type = 4;
-  bytes caller = 5;
-  bytes address = 6;
-  uint64 gas_limit = 7;
-  uint64 gas_consumed = 8;
-  bytes return_data = 9;
-  bytes input = 10;
-  bool executed_code = 11;
-  bool suicide = 12;
-  // map<string, string> keccak_preimages = 13;
-  // repeated StorageChange storage_changes = 14;
-  // repeated BalanceChange balance_changes = 15;
-  // repeated NonceChange nonce_changes = 16;
-  // repeated Log logs = 17;
-  // repeated CodeChange code_changes = 18;
-  // repeated GasChange gas_changes = 19;
-  bool status_failed = 13;
-  bool status_reverted = 14;
-  string failure_reason = 15;
-  bool state_reverted = 16;
-  uint64 begin_ordinal = 17;
-  uint64 end_ordinal = 18;
-  // repeated AccountCreation account_creations = 26;
-}
-
-
-message StorageChange {
-  bytes key = 1;
-  bytes value = 2;
-}
-
-message BalanceChange {
-  bytes address = 1;
-  int64 value = 2;
-}
-
-message NonceChange {
-  bytes address = 1;
-  uint64 value = 2;
-}
-
-message Log {
-  bytes address = 1;
-  bytes data = 2;
-  repeated bytes topics = 3;
-}
-
-message CodeChange {
-  bytes address = 1;
-  bytes code = 2;
-}
-
-message GasChange {
-  int32 gas_cost = 1;
-  string change_type = 2;
-}
-
-message AccountCreation {
-  bytes address = 1;
-  bytes balance = 2;
-  uint64 nonce = 3;
-  repeated StorageChange initial_storage = 4;
 }

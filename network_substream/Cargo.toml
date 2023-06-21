@@ -25,4 +25,3 @@ strip = "debuginfo"
 
 [profile.dev]
 rustc_flags = ["--allow-non-snake-case"]
-

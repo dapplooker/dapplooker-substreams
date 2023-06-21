@@ -13,9 +13,6 @@ use substreams::store::StoreSet;
 use hex;    
 use substreams_ethereum::pb::eth::v2::BigInt;
 
-
-
-
 substreams_ethereum::init!();
 
 #[substreams::handlers::map]
@@ -33,28 +30,6 @@ fn map_trx(blk: eth::Block) -> Result<TransactionList, substreams::errors::Error
 }
 
 fn process_transaction_trace(trx: eth::TransactionTrace, block: &eth::Block) -> Transaction {
-    // let call_details_list: Vec<T> = trx.calls.into_iter().map(|call| {
-    //     Call {
-    //         index: call.index,
-    //         parent_index: call.parent_index,
-    //         depth: call.depth,
-    //         call_type: call.call_type,
-    //         caller: call.caller,
-    //         address: call.address,
-    //         gas_limit: call.gas_limit,
-    //         gas_consumed: call.gas_consumed,
-    //         return_data: call.return_data,
-    //         input: call.input,
-    //         executed_code: call.executed_code,
-    //         suicide: call.suicide,
-    //         status_failed: call.status_failed,
-    //         status_reverted: call.status_reverted,
-    //         failure_reason: call.failure_reason,
-    //         state_reverted: call.state_reverted,
-    //         begin_ordinal: call.begin_ordinal,
-    //         end_ordinal: call.end_ordinal,
-    //     }
-    // }).collect();
     let header = block.header.as_ref().unwrap();
     let block_number = block.number;
     let time_stamp = header.timestamp.clone().unwrap().seconds;
@@ -69,19 +44,11 @@ fn process_transaction_trace(trx: eth::TransactionTrace, block: &eth::Block) -> 
         gasLimit: trx.gas_limit,
         to: base_64_to_hex(trx.to),
         from: base_64_to_hex(trx.from),
-        // publicKey: trx.public_key,
         value: option_bigint_to_number_string(trx.value),
         blockNumber: block_number,
         timestamp: time_stamp,
-        // receipt: Some(TransactionReceipt {
-        //     state_root: trx.receipt.as_ref().map(|r| r.state_root.clone()).unwrap_or_default(),
-        //     cumulative_gas_used: trx.receipt.as_ref().map(|r| r.cumulative_gas_used).unwrap_or(0),
-        //     logs_bloom: trx.receipt.as_ref().map(|r| r.logs_bloom.clone()).unwrap_or_default(),
-        // }),
-        // call_details_list,
     }
 }
-
 
 fn base_64_to_hex<T: std::convert::AsRef<[u8]>>(num:T) -> String {
     let num = hex::encode(&num);
@@ -144,3 +111,4 @@ pub fn graph_out(map_trx: TransactionList, map_block: BlockHeader) -> Result<Ent
     db::create_block_entity(&mut tables, &map_block);
     Ok(tables.to_entity_changes())
 }
+ 

@@ -42,3 +42,4 @@ pub fn create_block_entity(tables: &mut Tables, block:&BlockHeader) {
         .set("difficulty", &block.difficulty)
         .set("totalDifficulty", &block.totalDifficulty);
 }
+

@@ -1,0 +1,45 @@
+syntax = "proto3";
+
+package acme;
+
+message BigInt {
+  bytes bytes = 1;
+}
+
+// ## Block Details ##
+message BlockHeader {
+  string id = 1;
+  string parentHash = 2;
+  string uncleHash = 3;
+  uint64 nonce = 4;
+  bytes receipt_root = 5;
+  uint64 number = 6;
+  uint64 gasLimit = 7;
+  uint64 gasUsed = 8;
+  int64 timestamp = 9;
+  uint64 size = 10;
+  string difficulty = 11; 
+  string totalDifficulty = 12;
+}
+
+// ## Transaction List ##
+message TransactionList {
+  repeated Transaction transaction_details_list = 1;
+}
+
+// ## Transaction Details ##
+message Transaction {
+  string id = 1;
+  string status = 2;
+  uint64 gasUsed = 3;
+  uint64 gasLimit = 4;
+  uint64 nonce = 5;
+  string to = 6;
+  string from = 7;
+  string maxFeePerGas = 8;
+  string maxPriorityFeePerGas = 9;
+  uint32 index = 10;
+  string value = 11;
+  uint64 blockNumber = 12;
+  int64 timestamp = 13;
+}

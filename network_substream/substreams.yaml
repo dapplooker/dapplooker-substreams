@@ -1,0 +1,57 @@
+specVersion: v0.1.0
+package:
+  name: "network_substream"
+  version: v1.0.0
+
+protobuf:
+  files:
+    - block_meta.proto
+  importPaths:
+    - ./proto
+
+binaries:
+  default:
+    type: wasm/rust-v1
+    file: ./target/wasm32-unknown-unknown/release/substreams.wasm
+
+modules:
+  - name: map_trx
+    kind: map
+    initialBlock: 17469713
+    inputs:
+      - source: sf.ethereum.type.v2.Block
+    output:
+      type: proto:acme.TransactionList
+
+  - name: map_block
+    kind: map
+    initialBlock: 17469713
+    inputs:
+      - source: sf.ethereum.type.v2.Block
+    output:
+      type: proto:acme.BlockHeader
+
+  - name: store_price
+    kind: store
+    initialBlock: 17469713
+    updatePolicy: set
+    valueType: proto:block_meta.TransactionList
+    inputs:
+      - map: map_trx
+
+  - name: store_block
+    kind: store
+    initialBlock: 17469713
+    updatePolicy: set
+    valueType: proto:block_meta.BlockHeader
+    inputs:
+      - map: map_block
+
+  - name: graph_out
+    kind: map
+    initialBlock: 17469713
+    inputs:
+      - map: map_trx
+      - map: map_block
+    output:
+      type: proto:sf.substreams.entity.v1.EntityChanges

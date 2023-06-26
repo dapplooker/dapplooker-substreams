@@ -1,0 +1,14 @@
+specVersion: 0.0.5
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: substreams
+    name: Contract
+    network: mainnet
+    source:
+      package:
+        moduleName: graph_out
+        file: ./network-substream-v1.0.0.spkg
+    mapping:
+      apiVersion: 0.0.5
+      kind: substreams/graph-entities

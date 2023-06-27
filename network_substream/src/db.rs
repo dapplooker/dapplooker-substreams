@@ -1,4 +1,4 @@
-use crate::acme::{Transaction, TransactionList, BlockHeader};
+use crate::acme::{Transaction, TransactionList, BlockHeader, ContractList, Contract};
 use crate::tables::Tables;
 
 pub fn register_transaction(tables: &mut Tables, transactions: &TransactionList) {
@@ -25,6 +25,22 @@ fn create_transaction_entity(tables: &mut Tables, transaction: &Transaction) {
         .set("timestamp",  transaction.timestamp);
 }
 
+pub fn register_contracts(tables: &mut Tables, contracts: &ContractList) {
+    for contract in &contracts.contract_list {
+        create_contract_entity(tables, contract);
+    }
+}
+
+fn create_contract_entity(tables: &mut Tables, contract: &Contract) {
+    tables
+        .create_row("Contract",  &contract.transactionHash.clone())
+        .set("id", &contract.address)
+        .set("address", &contract.address)
+        .set("owner", &contract.owner)
+        .set("transactionHash",contract.transactionHash.clone())
+        .set("blockNumber",  contract.blockNumber)
+        .set("timestamp",  contract.timestamp);
+}
 
 pub fn create_block_entity(tables: &mut Tables, block:&BlockHeader) {
     tables

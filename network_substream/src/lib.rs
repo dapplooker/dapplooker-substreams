@@ -36,7 +36,7 @@ fn process_contract_trace(
     let contract_check = String::from_utf8_lossy(&trx.input).to_string();
     let block_number = block.number;
     let time_stamp = header.timestamp.clone().unwrap().seconds;
-    if contract_check.contains("`�`@R") {
+    if contract_check.starts_with("`�`@R") {
         Some(Contract {
             owner: base_64_to_hex(trx.from),
             address: base_64_to_hex(trx.to),

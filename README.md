@@ -114,7 +114,7 @@ Finally, you can run the example Substream. Make sure you are in the project's r
 To run map module
 
 ```
-substreams run -e api-dev.streamingfast.io:443 substreams.yaml map_trx --start-block 17045218 --stop-block +1
+substreams run -e <substream_endpoint> substreams.yaml map_trx --start-block 17045218 --stop-block +1
 ```
 
 # Create your own Substream
@@ -154,8 +154,9 @@ modules:
 
 ### Create Rust manifest file
 
-- To complete your new Substreams module, you must also create a Rust manifest file.
-- To use the example Rust manifest file, copy and paste its content into a new file named Cargo.toml. Save this file in the root directory of your Substreams module. - It's important to provide a unique and useful value for the "name" field and to make sure that crate-type = ["cdylib"] is defined so the WASM is generated.
+- To complete your new Substreams module, you must also create a Rust manifest file. <br>
+- To use the example Rust manifest file, copy and paste its content into a new file named Cargo.toml. Save this file in the root directory of your Substreams module. <br>
+- It's important to provide a unique and useful value for the "name" field and to make sure that crate-type = ["cdylib"] is defined so the WASM is generated.
 
 ```
 [package]
@@ -341,6 +342,10 @@ type Block @entity {
 
 - Include the graph-out module in your lib.rs file.
 
+- The graph_out function calls the to_entity_changes() method on the Tables object because it wants to store the entity changes in a database. The Tables object contains a table for each entity type, and the to_entity_changes() method will add the entity changes to the appropriate table.
+
+- Once the entity changes have been added to the table, they can be queried and analyzed using graph analytics tools.
+
 ```
 #[substreams::handlers::map]
 pub fn graph_out(map_trx: TransactionList, map_block: BlockHeader, map_contract: ContractList) -> Result<EntityChanges, substreams::errors::Error> {
@@ -396,22 +401,22 @@ pub fn create_block_entity(tables: &mut Tables, block:&BlockHeader) {
 $ substreams pack ./substreams.yaml
 ```
 
-#### Step 4 => Initialize the subgraph
+#### Step 5 => Initialize the subgraph
 
 - Begin by running the "Initialize subgraph" command to set up the subgraph.
 
 ```bash
-graph init --product hosted-service harshrjjpt/example
+graph init --product hosted-service dapplooker/example
 ```
 
 - Choose the Substreams option and provide the path to your package file.
 - Execute the graph-build command to create the necessary build files for the subgraph
 - Finally, run the DEPLOY SUBGRAPH command to deploy the subgraph to the hosted service.
 
-#### Step 5 => Deploy the subgraph
+#### Step 6 => Deploy the subgraph
 
 ```bash
-graph deploy --product hosted-service harshrjjpt/example
+graph deploy --product hosted-service dapplooker/example
 ```
 
 ### Sample Substreams

@@ -28,3 +28,12 @@ type Transaction @entity {
   blockNumber: BigInt!
   timestamp: BigInt!
 }
+
+type Contract @entity {
+  id: String!
+  owner: String!
+  address: String!
+  transactionHash: String!
+  blockNumber: BigInt!
+  timestamp: BigInt!
+}

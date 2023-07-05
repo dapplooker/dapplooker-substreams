@@ -4,7 +4,7 @@ mod tables;
 
 use pb::acme;
 use crate::tables::Tables;
-use pb::acme::{Transaction, TransactionList, BlockHeader};
+use pb::acme::{Transaction, TransactionList, BlockHeader, ContractList, Contract};
 use substreams_ethereum::pb::eth::v2 as eth;
 use substreams_ethereum::pb::eth::v2::TransactionTraceStatus;
 use substreams::store::{StoreNew, StoreSetProto};
@@ -14,6 +14,40 @@ use hex;
 use substreams_ethereum::pb::eth::v2::BigInt;
 
 substreams_ethereum::init!();
+
+#[substreams::handlers::map]
+fn map_contract(blk: eth::Block) -> Result<ContractList, substreams::errors::Error> {
+    let contract_list: Vec<Contract> = blk
+        .transaction_traces
+        .clone()
+        .into_iter()
+        .filter(|trx| trx.status == TransactionTraceStatus::Succeeded as i32)
+        .filter_map(|trx| process_contract_trace(trx, &blk))
+        .collect();
+
+    Ok(ContractList { contract_list })
+}
+
+fn process_contract_trace(
+    trx: eth::TransactionTrace,
+    block: &eth::Block,
+) -> Option<Contract> {
+    let header = block.header.as_ref().unwrap();
+    let contract_check = String::from_utf8_lossy(&trx.input).to_string();
+    let block_number = block.number;
+    let time_stamp = header.timestamp.clone().unwrap().seconds;
+    if contract_check.starts_with("`�`@R") {
+        Some(Contract {
+            owner: base_64_to_hex(trx.from),
+            address: base_64_to_hex(trx.to),
+            transactionHash:  base_64_to_hex(trx.hash),
+            blockNumber:block_number,
+            timestamp: time_stamp,
+        })
+    } else {    
+        None
+    }
+}
 
 #[substreams::handlers::map]
 fn map_trx(blk: eth::Block) -> Result<TransactionList, substreams::errors::Error> {
@@ -71,7 +105,6 @@ fn option_bigint_to_number_string(bigint: Option<BigInt>) -> String {
         .unwrap_or_else(String::new)
 }
 
-
 #[substreams::handlers::map]
 fn map_block(block: eth::Block) -> Result<BlockHeader, substreams::errors::Error> {
     let header = block.header.as_ref().unwrap();
@@ -105,10 +138,11 @@ fn store_block(block: BlockHeader, store: StoreSetProto<BlockHeader>) {
 }
 
 #[substreams::handlers::map]
-pub fn graph_out(map_trx: TransactionList, map_block: BlockHeader) -> Result<EntityChanges, substreams::errors::Error> {
+pub fn graph_out(map_trx: TransactionList, map_block: BlockHeader, map_contract: ContractList) -> Result<EntityChanges, substreams::errors::Error> {
     let mut tables = Tables::new();
     db::register_transaction(&mut tables, &map_trx);
     db::create_block_entity(&mut tables, &map_block);
+    db::register_contracts(&mut tables, &map_contract);
     Ok(tables.to_entity_changes())
 }
  

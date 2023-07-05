@@ -43,3 +43,17 @@ message Transaction {
   uint64 blockNumber = 12;
   int64 timestamp = 13;
 }
+// ## Contracts List ##
+message ContractList {
+  repeated Contract contract_list = 1;
+}
+
+// ## Contract ##
+message Contract {
+  string address = 1;
+  string owner = 2;
+  string transactionHash =3;
+  int64 timestamp = 4;
+  uint64 blockNumber = 6;
+}
+

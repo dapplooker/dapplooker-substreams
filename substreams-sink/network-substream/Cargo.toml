@@ -11,7 +11,6 @@ substreams = "0.5.0"
 substreams-ethereum = "0.8.0"
 prost = "0.11"
 substreams-database-change = "1.2.0"
-substreams-entity-change = {git = "https://github.com/streamingfast/substreams-entity-change/", branch = "develop"}
 anyhow = "1"
 base64 = "0.13.0"
 hex = "0.4"

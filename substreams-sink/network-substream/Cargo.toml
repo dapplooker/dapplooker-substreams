@@ -22,3 +22,4 @@ chrono = { version = "0.4", features = [ "std" ], default-features = false }
 lto = true
 opt-level = 's'
 strip = "debuginfo"
+

@@ -17,7 +17,7 @@ binaries:
 modules:
   - name: map_trx
     kind: map
-    initialBlock: 17045218
+    initialBlock: 17162287
     inputs:
       - source: sf.ethereum.type.v2.Block
     output:
@@ -25,7 +25,7 @@ modules:
 
   - name: map_contract
     kind: map
-    initialBlock: 17045218
+    initialBlock: 17162287
 
     inputs:
       - source: sf.ethereum.type.v2.Block
@@ -34,7 +34,7 @@ modules:
 
   - name: map_block
     kind: map
-    initialBlock: 17045218
+    initialBlock: 17162287
     inputs:
       - source: sf.ethereum.type.v2.Block
     output:
@@ -42,7 +42,7 @@ modules:
 
   - name: store_price
     kind: store
-    initialBlock: 17045218
+    initialBlock: 17162287
     updatePolicy: set
     valueType: proto:block_meta.TransactionList
     inputs:
@@ -50,7 +50,7 @@ modules:
 
   - name: store_block
     kind: store
-    initialBlock: 17045218
+    initialBlock: 17162287
     updatePolicy: set
     valueType: proto:block_meta.BlockHeader
     inputs:
@@ -58,7 +58,7 @@ modules:
 
   - name: graph_out
     kind: map
-    initialBlock: 17045218
+    initialBlock: 17162287
     inputs:
       - map: map_trx
       - map: map_block

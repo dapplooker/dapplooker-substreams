@@ -73,14 +73,15 @@ fn process_transaction_trace(trx: eth::TransactionTrace, block: &eth::Block) -> 
         status: trx.status.to_string(),
         index: trx.index,
         nonce: trx.nonce,
-        maxFeePerGas: option_bigint_to_number_string(trx.max_fee_per_gas),
-        maxPriorityFeePerGas: option_bigint_to_number_string(trx.max_priority_fee_per_gas),
+        maxFeePerGas: option_bigint_to_number_u64(trx.max_fee_per_gas),
+        maxPriorityFeePerGas: option_bigint_to_number_u64(trx.max_priority_fee_per_gas),
         gasLimit: trx.gas_limit,
         to: base_64_to_hex(trx.to),
         from: base_64_to_hex(trx.from),
-        value: option_bigint_to_number_string(trx.value),
+        value: option_bigint_to_number_u64(trx.value),
         blockNumber: block_number,
         timestamp: time_stamp,
+        gasPrice: option_bigint_to_number_u64(trx.gas_price)
     }
 }
 
@@ -103,6 +104,21 @@ fn option_bigint_to_number_string(bigint: Option<BigInt>) -> String {
             value.to_string()
         })
         .unwrap_or_else(String::new)
+}
+
+fn option_bigint_to_number_u64(bigint: Option<BigInt>) -> u64 {
+    bigint
+        .map(|num| {
+            let bytes = num.bytes;
+            let mut value: u64 = 0;
+
+            for byte in bytes {
+                value = (value << 8) + u64::from(byte);
+            }
+
+            value
+        })
+        .unwrap_or(0)
 }
 
 #[substreams::handlers::map]

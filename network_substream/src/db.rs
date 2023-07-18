@@ -22,7 +22,8 @@ fn create_transaction_entity(tables: &mut Tables, transaction: &Transaction) {
         .set("maxPriorityFeePerGas",  transaction.maxPriorityFeePerGas.clone())
         .set("blockNumber",  transaction.blockNumber)
         .set("value",  transaction.value.clone())
-        .set("timestamp",  transaction.timestamp);
+        .set("timestamp",  transaction.timestamp)
+        .set("gasPrice",  transaction.gasPrice);
 }
 
 pub fn register_contracts(tables: &mut Tables, contracts: &ContractList) {

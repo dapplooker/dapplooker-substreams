@@ -1,45 +1,43 @@
-CREATE SCHEMA eth;
+CREATE SCHEMA ethereum;
 
-CREATE TABLE eth.block_details (
-    id          text not null constraint block_details_pk primary key,
-    number      integer,
+CREATE TABLE ethereum.blocks (
+    id          int not null constraint block_meta_pk primary key,
+    hash      text,
     parent_hash text,
-    receipt_root text,
-    gas_limit text,
-    gas_used text,
-    timestamp   text,
+    gas_limit bigint,
+    gas_used bigint,
+    timestamp   timestamp,
     size        int,
     nonce       text
 );
 
-CREATE TABLE eth.cursors (
+CREATE TABLE ethereum.cursors (
     id         text not null constraint cursor_pk primary key,
     cursor     text,
     block_num  bigint,
     block_id   text
 );
 
-CREATE TABLE eth.transactions (
+CREATE TABLE ethereum.transactions (
     id         text not null constraint transactions_pk primary key,
     status     text,
     gas_used   bigint,
-    gas_limit  text,
+    gas_limit  bigint,
     block_number bigint,
-    timestamp  text,
-    hash       text,
+    gas_price bigint,
+    timestamp  timestamp,
     to_address text,
     from_address   text,
-    transaction_nonce  text,
-    max_fee_per_gas  text,
-    max_priority_fee_per_gas  text
+    max_fee_per_gas bigint,
+    max_priority_fee_per_gas bigint,
+    nonce      text
+
 );
 
-CREATE TABLE eth.contracts (
+CREATE TABLE ethereum.contracts (
     id         text not null constraint contracts_pk primary key,
     block_number bigint,
     owner        text,
-    address      text,
     transaction_hash text,
-    timestamp      text
-    
+    timestamp      timestamp   
 );

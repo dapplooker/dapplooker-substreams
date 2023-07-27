@@ -36,12 +36,13 @@ message Transaction {
   uint64 nonce = 5;
   string to = 6;
   string from = 7;
-  string maxFeePerGas = 8;
-  string maxPriorityFeePerGas = 9;
+  uint64 maxFeePerGas = 8;
+  uint64 maxPriorityFeePerGas = 9;
   uint32 index = 10;
-  string value = 11;
+  uint64 value = 11;
   uint64 blockNumber = 12;
   int64 timestamp = 13;
+  uint64 gasPrice = 14;
 }
 // ## Contracts List ##
 message ContractList {

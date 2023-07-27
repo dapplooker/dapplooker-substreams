@@ -21,12 +21,13 @@ type Transaction @entity {
   nonce: BigInt!
   to: String!
   from: String!
-  maxFeePerGas: String!
-  maxPriorityFeePerGas: String!
+  maxFeePerGas: BigInt!
+  maxPriorityFeePerGas: BigInt!
   index: BigInt!
-  value: String!
+  value: BigInt!
   blockNumber: BigInt!
   timestamp: BigInt!
+  gasPrice: BigInt!
 }
 
 type Contract @entity {
@@ -37,3 +38,4 @@ type Contract @entity {
   blockNumber: BigInt!
   timestamp: BigInt!
 }
+

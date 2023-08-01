@@ -1,5 +1,5 @@
 use substreams_database_change::tables::Tables;
-use hex;    
+use hex;
 use substreams::store::{
     self, DeltaProto, StoreNew, StoreSetIfNotExists, StoreSetIfNotExistsProto,
 };
@@ -9,6 +9,7 @@ use substreams_ethereum::pb::eth::v2 as eth;
 use substreams_ethereum::pb::eth::v2::TransactionTraceStatus;
 use substreams_database_change::pb::database::{table_change::Operation, DatabaseChanges};
 use substreams_ethereum::pb::eth::v2::BigInt;
+use prost_types::Timestamp;
 
 
 // create block entity
@@ -34,8 +35,8 @@ fn add_block_entity(tables: &mut Tables, blk: &eth::Block) {
 
 //create transaction entity
 fn add_trx_info_entity(tables: &mut Tables, trx: &eth::TransactionTrace,  block_number: &u64,
-    time_stamp: &Timestamp,) {
-    
+    time_stamp: &Timestamp) {
+
     tables
     .create_row("transactions",  base_64_to_hex(trx.hash.clone()))
     .set("status", trx.status)
@@ -53,8 +54,8 @@ fn add_trx_info_entity(tables: &mut Tables, trx: &eth::TransactionTrace,  block_
 
 //create contract entity
 fn add_contracts_info_entity(tables: &mut Tables, trx: &eth::TransactionTrace,  block_number: &u64,
-    time_stamp: &Timestamp,) {
-    
+    time_stamp: &Timestamp) {
+
     tables
         .create_row("contracts",  base_64_to_hex(trx.to.clone()))
         .set("id", base_64_to_hex(trx.hash.clone()))

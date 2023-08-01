@@ -11,8 +11,8 @@ CREATE TABLE ethereum.blocks (
     nonce       text
 );
 
-CREATE INDEX idx_eth_blk_details_hash ON ethereum.block_details (hash);
-CREATE INDEX idx_eth_blk_details_timestamp ON ethereum.block_details (timestamp);
+CREATE INDEX idx_eth_blk_details_hash ON ethereum.blocks (hash);
+CREATE INDEX idx_eth_blk_details_timestamp ON ethereum.blocks (timestamp);
 
 
 CREATE TABLE ethereum.cursors (

@@ -44,12 +44,14 @@ fn add_trx_info_entity(tables: &mut Tables, trx: &eth::TransactionTrace,  block_
     .set("gas_limit",  trx.gas_limit)
     .set("gas_price", option_bigint_to_number_u64(trx.gas_price.clone()))
     .set("nonce",  trx.nonce)
+    .set("amount", option_bigint_to_number_u64(trx.value.clone()))
     .set("to_address",  base_64_to_hex(trx.to.clone()))
     .set("from_address",  base_64_to_hex(trx.from.clone()))
     .set("max_fee_per_gas",  option_bigint_to_number_u64(trx.max_fee_per_gas.clone()))
-    .set("max_priority_fee_per_gas",  option_bigint_to_number_u64(trx.max_priority_fee_per_gas.clone()))
+    .set("max_priority_fee_per_gas",  option_bigint_to_number_string(trx.max_priority_fee_per_gas.clone()))
     .set("block_number",  block_number.clone())
     .set("timestamp",  time_stamp);
+   
 }
 
 //create contract entity

@@ -31,6 +31,7 @@ CREATE TABLE ethereum.transactions (
     block_number bigint,
     gas_price bigint,
     timestamp  timestamp,
+    amount       text,
     to_address text,
     from_address   text,
     max_fee_per_gas bigint,

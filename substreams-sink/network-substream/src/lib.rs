@@ -49,7 +49,8 @@ fn add_trx_info_entity(tables: &mut Tables, trx: &eth::TransactionTrace,  block_
     .set("max_fee_per_gas",  option_bigint_to_number_u64(trx.max_fee_per_gas.clone()))
     .set("max_priority_fee_per_gas",  option_bigint_to_number_u64(trx.max_priority_fee_per_gas.clone()))
     .set("block_number",  block_number.clone())
-    .set("timestamp",  time_stamp);
+    .set("timestamp",  time_stamp)
+    .set("amount",  option_bigint_to_number_u64(trx.value.clone()));
 }
 
 //create contract entity
@@ -127,3 +128,4 @@ fn db_out(
     }
     Ok(tables.to_database_changes())
 }
+

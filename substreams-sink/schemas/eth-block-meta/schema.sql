@@ -26,6 +26,7 @@ CREATE TABLE ethereum.cursors (
 CREATE TABLE ethereum.transactions (
     id         text not null constraint transactions_pk primary key,
     status     text,
+    amount     numeric,
     gas_used   bigint,
     gas_limit  bigint,
     block_number bigint,
@@ -35,7 +36,7 @@ CREATE TABLE ethereum.transactions (
     from_address   text,
     max_fee_per_gas bigint,
     max_priority_fee_per_gas bigint,
-    nonce      text
+    nonce      numeric
 );
 
 CREATE INDEX idx_eth_tx_block_number ON ethereum.transactions (block_number);
@@ -54,3 +55,4 @@ CREATE TABLE ethereum.contracts (
 CREATE INDEX idx_contract_block_number ON ethereum.contracts (block_number);
 CREATE INDEX idx_contract_block_timestamp ON ethereum.contracts (timestamp);
 CREATE INDEX idx_contract_transaction_hash ON ethereum.contracts (transaction_hash);
+

@@ -55,3 +55,4 @@ CREATE TABLE ethereum.contracts (
 CREATE INDEX idx_contract_block_number ON ethereum.contracts (block_number);
 CREATE INDEX idx_contract_block_timestamp ON ethereum.contracts (timestamp);
 CREATE INDEX idx_contract_transaction_hash ON ethereum.contracts (transaction_hash);
+

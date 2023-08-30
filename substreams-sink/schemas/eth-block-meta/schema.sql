@@ -45,14 +45,14 @@ CREATE INDEX idx_eth_tx_nonce ON ethereum.transactions (nonce);
 
 
 CREATE TABLE ethereum.contracts (
-    id         text not null constraint contracts_pk primary key,
-    block_number bigint,
-    owner        text,
-    transaction_hash text,
-    timestamp      timestamp
+    id               text not null,
+    block_number     bigint,
+    owner            text,
+    transaction_hash text not null,
+    timestamp        timestamp
 );
 
 CREATE INDEX idx_contract_block_number ON ethereum.contracts (block_number);
 CREATE INDEX idx_contract_block_timestamp ON ethereum.contracts (timestamp);
 CREATE INDEX idx_contract_transaction_hash ON ethereum.contracts (transaction_hash);
-
+CREATE INDEX idx_contract_id ON ethereum.contracts (id);

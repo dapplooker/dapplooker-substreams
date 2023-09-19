@@ -13,7 +13,7 @@ Substreams is a powerful blockchain indexing technology, developed for **The Gra
 <h4 align="center">
 
   <a href="https://discord.com/invite/dapplooker">
-    <img width='60%' height='50%' src="https://d2yxqfr8upg55w.cloudfront.net/assets/img/substream-logo.jpeg">
+    <img src="https://d2yxqfr8upg55w.cloudfront.net/assets/img/substream-logo.jpeg">
   </a>
   </a>
 </h4>

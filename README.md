@@ -18,7 +18,7 @@ Substreams is a powerful blockchain indexing technology, developed for **The Gra
   </a>
 </h4>
 
-# Substream features:-
+# Substream Features:-
 
 - Substreams enables developers to write Rust modules
 - It provides extremely high-performance indexing by virtue of parallelization, in a streaming-first fashion.

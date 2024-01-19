@@ -4,7 +4,7 @@ package:
   version: v0.1.0
 
 imports:
-  database_change: https://github.com/streamingfast/substreams-sink-database-changes/releases/download/v1.2.0/substreams-database-change-v1.2.0.spkg
+  database_change: https://github.com/streamingfast/substreams-sink-sql/releases/download/protodefs-v1.0.3/substreams-sink-sql-protodefs-v1.0.3.spkg
 
 binaries:
   default:
@@ -12,7 +12,6 @@ binaries:
     file: target/wasm32-unknown-unknown/release/substreams_sink.wasm
 
 modules:
-
   - name: db_out
     kind: map
     inputs:

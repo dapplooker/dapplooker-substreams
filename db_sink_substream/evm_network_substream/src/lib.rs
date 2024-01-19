@@ -1,15 +1,13 @@
-use substreams_database_change::tables::Tables;
 use hex;
-use substreams::store::{
-    self, DeltaProto, StoreNew, StoreSetIfNotExists, StoreSetIfNotExistsProto,
-};
+
+use prost_types::Timestamp;
+
+use substreams_database_change::tables::Tables;
 use substreams::Hex;
-use prost_types::Value;
 use substreams_ethereum::pb::eth::v2 as eth;
 use substreams_ethereum::pb::eth::v2::TransactionTraceStatus;
-use substreams_database_change::pb::database::{table_change::Operation, DatabaseChanges};
+use substreams_database_change::pb::database::{DatabaseChanges};
 use substreams_ethereum::pb::eth::v2::BigInt;
-use prost_types::Timestamp;
 
 
 // create block entity
@@ -73,21 +71,21 @@ fn base_64_to_hex<T: std::convert::AsRef<[u8]>>(num:T) -> String {
      format!("0x{}", &num)
 }
 
-// bigint to string
-fn option_bigint_to_number_string(bigint: Option<BigInt>) -> String {
-    bigint
-        .map(|num| {
-            let bytes = num.bytes;
-            let mut value: u128 = 0;
-
-            for byte in bytes {
-                value = (value << 8) + u128::from(byte);
-            }
-
-            value.to_string()
-        })
-        .unwrap_or_else(String::new)
-}
+// bigint to string. Commented as not using currently
+// fn option_bigint_to_number_string(bigint: Option<BigInt>) -> String {
+//     bigint
+//         .map(|num| {
+//             let bytes = num.bytes;
+//             let mut value: u128 = 0;
+//
+//             for byte in bytes {
+//                 value = (value << 8) + u128::from(byte);
+//             }
+//
+//             value.to_string()
+//         })
+//         .unwrap_or_else(String::new)
+// }
 
 fn option_bigint_to_number_u64(bigint: Option<BigInt>) -> u64 {
     bigint
@@ -111,16 +109,16 @@ fn db_out(
 ) -> Result<DatabaseChanges, substreams::errors::Error> {
     let header = &blk.header.as_ref().unwrap();
     let block_number = &blk.number;
-    let time_stamp =  blk.header.as_ref().unwrap().timestamp.as_ref().unwrap();
+    let time_stamp =  header.timestamp.as_ref().unwrap();
     let mut tables = Tables::new();
     // get blocks data
     add_block_entity(&mut tables, &blk);
     for trx in &blk.transaction_traces{
         // get transactions data
-        if(trx.status == TransactionTraceStatus::Succeeded as i32) {
+        if trx.status == TransactionTraceStatus::Succeeded as i32 {
             add_trx_info_entity(&mut tables, &trx, block_number, time_stamp);
         let contract_check = String::from_utf8_lossy(&trx.input).to_string();
-         if (contract_check.starts_with("`�`@R") && base_64_to_hex(trx.to.clone()) != "0x0000000000000000000000000000000000000000" ) {
+         if contract_check.starts_with("`�`@R") && base_64_to_hex(trx.to.clone()) != "0x0000000000000000000000000000000000000000"  {
             //get contracts data
             add_contracts_info_entity(&mut tables, &trx, block_number, time_stamp);
         }

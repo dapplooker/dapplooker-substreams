@@ -1,6 +1,6 @@
 specVersion: v0.1.0
 package:
-  name: "substreams_postgresql_sink_tutorial"
+  name: "substreams_sink"
   version: v0.1.0
 
 imports:
@@ -9,7 +9,7 @@ imports:
 binaries:
   default:
     type: wasm/rust-v1
-    file: target/wasm32-unknown-unknown/release/substreams_postgresql_sink_tutorial.wasm
+    file: target/wasm32-unknown-unknown/release/substreams_sink.wasm
 
 modules:
 

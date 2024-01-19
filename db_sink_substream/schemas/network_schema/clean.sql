@@ -1,4 +1,4 @@
-drop table if exists block_details;
-drop table if exists cursors;
-drop table if exists transactions;
-drop table if exists blocks;
+DROP TABLE IF EXISTS block_details;
+DROP TABLE IF EXISTS cursors;
+DROP TABLE IF EXISTS transactions;
+DROP TABLE IF EXISTS blocks;

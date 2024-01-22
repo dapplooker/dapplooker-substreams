@@ -1,0 +1,4 @@
+DROP TABLE IF EXISTS block_details;
+DROP TABLE IF EXISTS cursors;
+DROP TABLE IF EXISTS transactions;
+DROP TABLE IF EXISTS blocks;

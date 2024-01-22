@@ -1,6 +1,6 @@
 specVersion: v0.1.0
 package:
-  name: "network_substream"
+  name: "substream_powered_subgraph"
   version: v1.0.0
 
 protobuf:

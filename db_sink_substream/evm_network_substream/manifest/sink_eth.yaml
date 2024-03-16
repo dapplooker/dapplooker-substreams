@@ -14,5 +14,3 @@ sink:
     type: sf.substreams.sink.sql.v1.Service
     config:
         schema: "../../schemas/network_schema/create_tables_clickhouse.sql"
-        wire_protocol_access: true
-        engine: clickhouse

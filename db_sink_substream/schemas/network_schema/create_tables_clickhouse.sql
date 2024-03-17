@@ -4,8 +4,8 @@ CREATE DATABASE IF NOT EXISTS ethereum;
 -- Create blocks table
 CREATE TABLE IF NOT EXISTS ethereum.blocks (
     id          Int32 NOT NULL,
-    hash        String,
-    parent_hash String,
+    hash        FixedString(70),
+    parent_hash FixedString(70),
     gas_limit   Int64,
     gas_used    Int64,
     timestamp   DateTime,
@@ -30,16 +30,16 @@ CREATE TABLE IF NOT EXISTS ethereum.cursors (
 
 -- Create transactions table
 CREATE TABLE IF NOT EXISTS ethereum.transactions (
-    id                       String NOT NULL,
-    status                   String,
-    amount                   Decimal(50, 10),
+    id                       FixedString(70) NOT NULL,
+    status                   FixedString(10),
+    amount                   Float32,
     gas_used                 Int64,
     gas_limit                Int64,
     block_number            Int64,
     gas_price               Int64,
     timestamp               DateTime,
-    to_address              String,
-    from_address            String,
+    to_address              FixedString(50),
+    from_address            FixedString(50),
     max_fee_per_gas         Int64,
     max_priority_fee_per_gas Int64,
     nonce                   String,
@@ -53,10 +53,10 @@ CREATE TABLE IF NOT EXISTS ethereum.transactions (
 
 -- Create contracts table
 CREATE TABLE IF NOT EXISTS ethereum.contracts (
-    id               String NOT NULL,
+    id               FixedString(50) NOT NULL,
     block_number     Int64,
-    owner            String,
-    transaction_hash String NOT NULL,
+    owner            FixedString(50),
+    transaction_hash FixedString(70) NOT NULL,
     timestamp        DateTime,
     INDEX idx_contract_block_number (block_number) TYPE minmax GRANULARITY 8192,
     INDEX idx_contract_block_timestamp (timestamp) TYPE minmax GRANULARITY 8192,

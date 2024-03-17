@@ -37,7 +37,7 @@ fn add_trx_info_entity(tables: &mut Tables, trx: &eth::TransactionTrace,  block_
     .set("from_address",  base_64_to_hex(trx.from))
     .set("max_fee_per_gas",  option_bigint_to_number_u64(trx.max_fee_per_gas))
     .set("max_priority_fee_per_gas",  option_bigint_to_number_u64(trx.max_priority_fee_per_gas))
-    .set("block_number",  block_number)
+    .set("block_number",  block_number.clone())
     .set("timestamp",  time_stamp)
     .set("amount",  option_bigint_to_number_u64(trx.value));
 }
@@ -49,7 +49,7 @@ fn add_contracts_info_entity(tables: &mut Tables, trx: &eth::TransactionTrace,  
 	.set("id", base_64_to_hex(trx.hash))
 	.set("transaction_hash", base_64_to_hex(trx.hash))
 	.set("owner",  base_64_to_hex(trx.from))
-	.set("block_number",  block_number)
+	.set("block_number",  block_number.clone())
 	.set("timestamp",  time_stamp);
 }
 
@@ -57,7 +57,7 @@ fn add_contracts_info_entity(tables: &mut Tables, trx: &eth::TransactionTrace,  
 fn base_64_to_hex<T: std::convert::AsRef<[u8]>>(num:T) -> String {
     let num = hex::encode(&num);
     let num = num.to_string();
-    format!("0x{}", &num);
+    format!("0x{}", &num)
 }
 
 // bigint to string. Commented as not using currently

@@ -15,7 +15,7 @@ fn add_block_entity(tables: &mut Tables, blk: &eth::Block) {
     let header = blk.header.as_ref().unwrap();
     tables
 	.create_row("blocks", blk.number.to_string())
-	.set("hash", base_64_to_hex(blk.hash.clone())
+	.set("hash", base_64_to_hex(blk.hash.clone()))
 	.set("parent_hash", Hex(&blk.header.as_ref().unwrap().parent_hash).to_string())
 	.set("timestamp",blk.header.as_ref().unwrap().timestamp.as_ref().unwrap())
 	.set("size", blk.size)
@@ -39,7 +39,7 @@ fn add_trx_info_entity(tables: &mut Tables, trx: &eth::TransactionTrace,  block_
     .set("max_priority_fee_per_gas",  option_bigint_to_number_u64(trx.max_priority_fee_per_gas.clone())
     .set("block_number",  block_number.clone())
     .set("timestamp",  time_stamp)
-    .set("amount",  option_bigint_to_number_u64(trx.value.clone());
+    .set("amount",  option_bigint_to_number_u64(trx.value.clone()));
 }
 
 // Create contract entity
@@ -48,7 +48,7 @@ fn add_contracts_info_entity(tables: &mut Tables, trx: &eth::TransactionTrace,  
 	.create_row("contracts",  base_64_to_hex(trx.to.clone())
 	.set("id", base_64_to_hex(trx.hash.clone())
 	.set("transaction_hash", base_64_to_hex(trx.hash.clone())
-	.set("owner",  base_64_to_hex(trx.from.clone())
+	.set("owner",  base_64_to_hex(trx.from.clone()))
 	.set("block_number",  block_number.clone())
 	.set("timestamp",  time_stamp);
 }
@@ -107,7 +107,7 @@ fn db_out(blk: eth::Block) -> Result<DatabaseChanges, substreams::errors::Error>
             add_trx_info_entity(&mut tables, &trx, block_number, time_stamp);
             let contract_check = String::from_utf8_lossy(&trx.input).to_string();
             // Check for contract creation and store the data
-            if contract_check.starts_with("`�`@R") && base_64_to_hex(trx.to.clone() != "0x0000000000000000000000000000000000000000"  {
+            if contract_check.starts_with("`�`@R") && base_64_to_hex(trx.to.clone()) != "0x0000000000000000000000000000000000000000"  {
             	add_contracts_info_entity(&mut tables, &trx, block_number, time_stamp);
 			}
         }

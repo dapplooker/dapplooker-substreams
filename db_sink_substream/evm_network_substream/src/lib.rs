@@ -27,14 +27,14 @@ fn add_block_entity(tables: &mut Tables, blk: &eth::Block) {
 // Create transaction entity
 fn add_trx_info_entity(tables: &mut Tables, trx: &eth::TransactionTrace,  block_number: &u64, time_stamp: &Timestamp) {
     tables
-    .create_row("transactions",  base_64_to_hex(trx.hash.clone())
+    .create_row("transactions",  base_64_to_hex(trx.hash.clone()))
     .set("status", trx.status)
     .set("gas_used",  trx.gas_used)
     .set("gas_limit",  trx.gas_limit)
-    .set("gas_price", option_bigint_to_number_u64(trx.gas_price.clone())
+    .set("gas_price", option_bigint_to_number_u64(trx.gas_price.clone()))
     .set("nonce",  trx.nonce)
-    .set("to_address",  base_64_to_hex(trx.to))
-    .set("from_address",  base_64_to_hex(trx.from.clone())
+    .set("to_address",  base_64_to_hex(trx.to.clone()))
+    .set("from_address",  base_64_to_hex(trx.from.clone()))
     .set("max_fee_per_gas",  option_bigint_to_number_u64(trx.max_fee_per_gas.clone()))
     .set("max_priority_fee_per_gas",  option_bigint_to_number_u64(trx.max_priority_fee_per_gas.clone()))
     .set("block_number",  block_number.clone())
@@ -45,8 +45,8 @@ fn add_trx_info_entity(tables: &mut Tables, trx: &eth::TransactionTrace,  block_
 // Create contract entity
 fn add_contracts_info_entity(tables: &mut Tables, trx: &eth::TransactionTrace,  block_number: &u64, time_stamp: &Timestamp) {
     tables
-	.create_row("contracts",  base_64_to_hex(trx.to.clone())
-	.set("id", base_64_to_hex(trx.hash.clone())
+	.create_row("contracts",  base_64_to_hex(trx.to.clone()))
+	.set("id", base_64_to_hex(trx.hash.clone()))
 	.set("transaction_hash", base_64_to_hex(trx.hash.clone()))
 	.set("owner",  base_64_to_hex(trx.from.clone()))
 	.set("block_number",  block_number.clone())

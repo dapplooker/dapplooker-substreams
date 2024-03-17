@@ -32,7 +32,7 @@ CREATE TABLE IF NOT EXISTS ethereum.cursors (
 CREATE TABLE IF NOT EXISTS ethereum.transactions (
     id                       FixedString(70) NOT NULL,
     status                   FixedString(10),
-    amount                   Float32,
+    amount                   Float64,
     gas_used                 Int64,
     gas_limit                Int64,
     block_number            Int64,

@@ -36,7 +36,7 @@ fn add_trx_info_entity(tables: &mut Tables, trx: &eth::TransactionTrace,  block_
     .set("to_address",  base_64_to_hex(trx.to))
     .set("from_address",  base_64_to_hex(trx.from.clone())
     .set("max_fee_per_gas",  option_bigint_to_number_u64(trx.max_fee_per_gas.clone()))
-    .set("max_priority_fee_per_gas",  option_bigint_to_number_u64(trx.max_priority_fee_per_gas.clone())
+    .set("max_priority_fee_per_gas",  option_bigint_to_number_u64(trx.max_priority_fee_per_gas.clone()))
     .set("block_number",  block_number.clone())
     .set("timestamp",  time_stamp)
     .set("amount",  option_bigint_to_number_u64(trx.value.clone()));
@@ -47,7 +47,7 @@ fn add_contracts_info_entity(tables: &mut Tables, trx: &eth::TransactionTrace,  
     tables
 	.create_row("contracts",  base_64_to_hex(trx.to.clone())
 	.set("id", base_64_to_hex(trx.hash.clone())
-	.set("transaction_hash", base_64_to_hex(trx.hash.clone())
+	.set("transaction_hash", base_64_to_hex(trx.hash.clone()))
 	.set("owner",  base_64_to_hex(trx.from.clone()))
 	.set("block_number",  block_number.clone())
 	.set("timestamp",  time_stamp);

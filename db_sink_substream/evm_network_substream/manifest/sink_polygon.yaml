@@ -1,0 +1,16 @@
+specVersion: v0.1.0
+package:
+    name: "substreams_sink"
+    version: v0.1.0
+
+imports:
+    sql: https://github.com/streamingfast/substreams-sink-sql/releases/download/protodefs-v1.0.3/substreams-sink-sql-protodefs-v1.0.3.spkg
+    main: ../substreams.yaml
+
+network: "mainnet"
+
+sink:
+    module: main:db_out
+    type: sf.substreams.sink.sql.v1.Service
+    config:
+        schema: "../../schemas/network_schema/create_tables_polygon_clickhouse.sql"

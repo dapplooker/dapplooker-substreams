@@ -7,7 +7,7 @@ imports:
     sql: https://github.com/streamingfast/substreams-sink-sql/releases/download/protodefs-v1.0.3/substreams-sink-sql-protodefs-v1.0.3.spkg
     main: ../substreams.yaml
 
-network: "mainnet"
+network: "polygon"
 
 sink:
     module: main:db_out

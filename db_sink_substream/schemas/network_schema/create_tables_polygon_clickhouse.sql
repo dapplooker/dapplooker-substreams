@@ -8,14 +8,13 @@ CREATE TABLE IF NOT EXISTS polygon_network.blocks (
     parent_hash FixedString(70),
     gas_limit   Int64,
     gas_used    Int64,
-    timestamp   DateTime64(3, 'UTC'),
+    timestamp   DateTime,
     size        Int32,
     nonce       String,
     INDEX idx_eth_blk_details_hash (hash) TYPE minmax GRANULARITY 8192,
     INDEX idx_eth_blk_details_timestamp (timestamp) TYPE minmax GRANULARITY 8192
 ) ENGINE = ReplacingMergeTree()
-PRIMARY KEY (id)
-ORDER BY (id, timestamp);
+ORDER BY (id);
 
 -- Create cursors table
 CREATE TABLE IF NOT EXISTS polygon_network.cursors (
@@ -24,8 +23,8 @@ CREATE TABLE IF NOT EXISTS polygon_network.cursors (
     block_num Int64,
     block_id  String
 ) ENGINE = ReplacingMergeTree()
-    PRIMARY KEY (id)
-    ORDER BY (id);
+PRIMARY KEY (id)
+ORDER BY (id);
 
 
 -- Create transactions table
@@ -37,7 +36,7 @@ CREATE TABLE IF NOT EXISTS polygon_network.transactions (
     gas_limit                Int64,
     block_number            Int64,
     gas_price               Int64,
-    timestamp               DateTime64(3, 'UTC'),
+    timestamp               DateTime,
     to_address              FixedString(50),
     from_address            FixedString(50),
     max_fee_per_gas         Int64,
@@ -47,21 +46,19 @@ CREATE TABLE IF NOT EXISTS polygon_network.transactions (
     INDEX idx_eth_tx_block_timestamp  (timestamp) TYPE minmax GRANULARITY 8192,
     INDEX idx_eth_tx_nonce  (nonce) TYPE minmax GRANULARITY 8192
 ) ENGINE = ReplacingMergeTree()
-    PRIMARY KEY (id)
-    ORDER BY (id, timestamp);
+ORDER BY (id);
 
 
 -- Create contracts table
 CREATE TABLE IF NOT EXISTS polygon_network.contracts (
-    id               FixedString(50) NOT NULL,
+                                                         id               FixedString(50) NOT NULL,
     block_number     Int64,
     owner            FixedString(50),
     transaction_hash FixedString(70) NOT NULL,
-    timestamp        DateTime64(3, 'UTC'),
+    timestamp        DateTime,
     INDEX idx_contract_block_number (block_number) TYPE minmax GRANULARITY 8192,
     INDEX idx_contract_block_timestamp (timestamp) TYPE minmax GRANULARITY 8192,
     INDEX idx_contract_transaction_hash (transaction_hash) TYPE minmax GRANULARITY 8192,
     INDEX idx_contract_id (id) TYPE minmax GRANULARITY 8192
 ) ENGINE = ReplacingMergeTree()
-    PRIMARY KEY (id)
-    ORDER BY (id, timestamp);
+ORDER BY (id);

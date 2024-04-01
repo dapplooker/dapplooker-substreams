@@ -14,8 +14,7 @@ CREATE TABLE IF NOT EXISTS ethereum.blocks (
     INDEX idx_eth_blk_details_hash (hash) TYPE minmax GRANULARITY 8192,
     INDEX idx_eth_blk_details_timestamp (timestamp) TYPE minmax GRANULARITY 8192
 ) ENGINE = ReplacingMergeTree()
-PRIMARY KEY (id)
-ORDER BY (id, timestamp);
+ORDER BY (id);
 
 -- Create cursors table
 CREATE TABLE IF NOT EXISTS ethereum.cursors (
@@ -24,8 +23,7 @@ CREATE TABLE IF NOT EXISTS ethereum.cursors (
     block_num Int64,
     block_id  String
 ) ENGINE = ReplacingMergeTree()
-    PRIMARY KEY (id)
-    ORDER BY (id);
+ORDER BY (id);
 
 
 -- Create transactions table
@@ -47,8 +45,7 @@ CREATE TABLE IF NOT EXISTS ethereum.transactions (
     INDEX idx_eth_tx_block_timestamp  (timestamp) TYPE minmax GRANULARITY 8192,
     INDEX idx_eth_tx_nonce  (nonce) TYPE minmax GRANULARITY 8192
 ) ENGINE = ReplacingMergeTree()
-    PRIMARY KEY (id)
-    ORDER BY (id, timestamp);
+ORDER BY (id);
 
 
 -- Create contracts table
@@ -63,5 +60,4 @@ CREATE TABLE IF NOT EXISTS ethereum.contracts (
     INDEX idx_contract_transaction_hash (transaction_hash) TYPE minmax GRANULARITY 8192,
     INDEX idx_contract_id (id) TYPE minmax GRANULARITY 8192
 ) ENGINE = ReplacingMergeTree()
-    PRIMARY KEY (id)
-    ORDER BY (id, timestamp);
+ORDER BY (id);

@@ -7,10 +7,10 @@ imports:
     sql: https://github.com/streamingfast/substreams-sink-sql/releases/download/protodefs-v1.0.3/substreams-sink-sql-protodefs-v1.0.3.spkg
     main: ../substreams.yaml
 
-network: "mainnet"
+network: "bnb"
 
 sink:
     module: main:db_out
     type: sf.substreams.sink.sql.v1.Service
     config:
-        schema: "../../schemas/network_schema/create_tables_clickhouse.sql"
+        schema: "../../schemas/network_schema/create_tables_bnb_clickhouse.sql"

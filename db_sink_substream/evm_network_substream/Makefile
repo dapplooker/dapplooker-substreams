@@ -1,10 +1,10 @@
-DSN ?= clickhouse://default:idp@pass.us-east-1.aws.clickhouse.cloud:8443/ethereum
+DSN ?= clickhouse://default:password@<host>:<port>/ethereum
 ENDPOINT ?= mainnet.eth.streamingfast.io:443
 
 
 .PHONY: build
 build:
-	cargo build --target wasm32-unknown-unknown --release
+	cargo +stable build --target wasm32-unknown-unknown --release
 
 .PHONY: stream
 stream: build
@@ -17,6 +17,10 @@ stream_db: build
 .PHONY: protogen
 protogen:
 	substreams protogen ./substreams.yaml --exclude-paths="sf/substreams,google"
+
+.PHONY: create_db
+create_db:
+	substreams-sink-sql setup "$(DSN)" manifest/sink_eth.yaml
 
 .PHONY: sink_db_out
 sink_db_out: build

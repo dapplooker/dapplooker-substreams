@@ -1,8 +1,8 @@
 -- Create schema
-CREATE DATABASE IF NOT EXISTS ethereum;
+CREATE DATABASE IF NOT EXISTS polygon_network;
 
 -- Create blocks table
-CREATE TABLE IF NOT EXISTS ethereum.blocks (
+CREATE TABLE IF NOT EXISTS polygon_network.blocks (
     id          Int32 NOT NULL,
     hash        FixedString(66),
     parent_hash FixedString(66),
@@ -17,17 +17,17 @@ CREATE TABLE IF NOT EXISTS ethereum.blocks (
 ORDER BY (id);
 
 -- Create cursors table
-CREATE TABLE IF NOT EXISTS ethereum.cursors (
+CREATE TABLE IF NOT EXISTS polygon_network.cursors (
     id        String NOT NULL,
     cursor    String,
     block_num Int64,
     block_id  String
 ) ENGINE = ReplacingMergeTree()
+PRIMARY KEY (id)
 ORDER BY (id);
 
-
 -- Create transactions table
-CREATE TABLE IF NOT EXISTS ethereum.transactions (
+CREATE TABLE IF NOT EXISTS polygon_network.transactions (
     id                       FixedString(66) NOT NULL,
     status                   FixedString(1),
     amount                   Float64,
@@ -49,7 +49,7 @@ ORDER BY (id);
 
 
 -- Create contracts table
-CREATE TABLE IF NOT EXISTS ethereum.contracts (
+CREATE TABLE IF NOT EXISTS polygon_network.contracts (
     id               FixedString(42) NOT NULL,
     block_number     Int64,
     owner            FixedString(42),

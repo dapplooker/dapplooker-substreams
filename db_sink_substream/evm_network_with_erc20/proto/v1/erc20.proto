@@ -1,0 +1,29 @@
+syntax = "proto3";
+
+package erc20.types.v1;
+
+message BalanceChanges {
+  repeated BalanceChange balance_changes = 1;
+}
+
+enum BalanceChangeType {
+  TYPE_UNKNOWN = 0; // cannot determine balance change
+  TYPE_1 = 1; // easy case where storage change is in the same call as the Transfer call
+  TYPE_2 = 2; // storage change is in a different call than the Transfer call
+}
+
+message BalanceChange {
+  string contract = 1;
+  string owner = 2;
+  string new_balance = 4;
+  BalanceChangeType change_type = 9;
+}
+
+message Erc20Token {
+  string address = 1;
+  string name = 2;
+  string symbol = 3;
+  uint64 decimals = 4;
+}
+
+

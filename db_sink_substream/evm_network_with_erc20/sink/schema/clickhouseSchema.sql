@@ -19,7 +19,7 @@ CREATE TABLE IF NOT EXISTS erc20.token (
 ORDER BY (name);
 
 CREATE TABLE IF NOT EXISTS erc20.account (
-    account           String,
+    account           FixedString(40),
 ) ENGINE = ReplacingMergeTree()
 ORDER BY (account);
 

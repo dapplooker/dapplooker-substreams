@@ -14,18 +14,11 @@ use substreams_ethereum::pb::eth::v2::BigInt as bigint;
 
 fn add_block_entity(tables: &mut Tables, blk: &eth::Block) {
     let header = blk.header.as_ref().unwrap();
-
     tables
         .create_row("blocks", blk.number.to_string())
         .set("hash", base_64_to_hex(blk.hash.clone()))
-        .set(
-            "parent_hash",
-            Hex(&blk.header.as_ref().unwrap().parent_hash).to_string(),
-        )
-        .set(
-            "timestamp",
-            blk.header.as_ref().unwrap().timestamp.as_ref().unwrap(),
-        )
+        .set("parent_hash",Hex(&blk.header.as_ref().unwrap().parent_hash).to_string(),)
+        .set("timestamp",blk.header.as_ref().unwrap().timestamp.as_ref().unwrap(),)
         .set("size", blk.size)
         .set("nonce", header.nonce)
         .set("gas_limit", header.gas_limit)
@@ -33,9 +26,7 @@ fn add_block_entity(tables: &mut Tables, blk: &eth::Block) {
 }
 
 //create transaction entity
-fn add_trx_info_entity(tables: &mut Tables, trx: &eth::TransactionTrace,  block_number: &u64,
-    time_stamp: &Timestamp) {
-
+fn add_trx_info_entity(tables: &mut Tables, trx: &eth::TransactionTrace,  block_number: &u64,time_stamp: &Timestamp) {
     tables
     .create_row("transactions",  base_64_to_hex(trx.hash.clone()))
     .set("status", trx.status)
@@ -53,9 +44,7 @@ fn add_trx_info_entity(tables: &mut Tables, trx: &eth::TransactionTrace,  block_
 }
 
 //create contract entity
-fn add_contracts_info_entity(tables: &mut Tables, trx: &eth::TransactionTrace,  block_number: &u64,
-    time_stamp: &Timestamp) {
-
+fn add_contracts_info_entity(tables: &mut Tables, trx: &eth::TransactionTrace,  block_number: &u64,time_stamp: &Timestamp) {
     tables
         .create_row("contracts",  base_64_to_hex(trx.to.clone()))
         .set("id", base_64_to_hex(trx.hash.clone()))

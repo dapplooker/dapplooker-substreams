@@ -30,38 +30,53 @@ CREATE TABLE IF NOT EXISTS erc20.balance (
 ) ENGINE = ReplacingMergeTree()
 ORDER BY (token);
 
+-- Create blocks table
 CREATE TABLE IF NOT EXISTS erc20.blocks (
-    hash           String,
-    parent_hash           String,
-    timestamp           String,
-    size           String,
-    nonce           String,
-    gas_limit           String,
-    gas_used           String
+    id          Int32 NOT NULL,
+    hash        FixedString(66),
+    parent_hash FixedString(66),
+    gas_limit   Int64,
+    gas_used    Int64,
+    timestamp   DateTime,
+    size        Int32,
+    nonce       String,
+    INDEX idx_eth_blk_details_hash (hash) TYPE minmax GRANULARITY 8192,
+    INDEX idx_eth_blk_details_timestamp (timestamp) TYPE minmax GRANULARITY 8192
 ) ENGINE = ReplacingMergeTree()
-ORDER BY (hash);
+ORDER BY (id);
 
+-- Create transactions table
 CREATE TABLE IF NOT EXISTS erc20.transactions (
-    status           String,
-    gas_used           String,
-    gas_limit           String,
-    gas_price           String,
-    nonce           String,
-    to_address           String,
-    from_address           String,
-    max_fee_per_gas           String,
-    max_priority_fee_per_gas           String,
-    block_number           String,
-    timestamp           String,
-    amount           String
+    id                       FixedString(66) NOT NULL,
+    status                   FixedString(1),
+    amount                   Float64,
+    gas_used                 Int64,
+    gas_limit                Int64,
+    block_number             Int64,
+    gas_price                Int64,
+    timestamp                DateTime,
+    to_address               FixedString(42),
+    from_address             FixedString(42),
+    max_fee_per_gas          Int64,
+    max_priority_fee_per_gas Int64,
+    nonce                    String,
+    INDEX idx_eth_tx_block_number  (block_number) TYPE minmax GRANULARITY 8192,
+    INDEX idx_eth_tx_block_timestamp  (timestamp) TYPE minmax GRANULARITY 8192,
+    INDEX idx_eth_tx_nonce  (nonce) TYPE minmax GRANULARITY 8192
 ) ENGINE = ReplacingMergeTree()
-ORDER BY (block_number);
+ORDER BY (id);
 
+
+-- Create contracts table
 CREATE TABLE IF NOT EXISTS erc20.contracts (
-    id           String,
-    transaction_hash           String,
-    owner           String,
-    size           String,
-    timestamp           String
+    id               FixedString(42) NOT NULL,
+    block_number     Int64,
+    owner            FixedString(42),
+    transaction_hash FixedString(66) NOT NULL,
+    timestamp        DateTime,
+    INDEX idx_contract_block_number (block_number) TYPE minmax GRANULARITY 8192,
+    INDEX idx_contract_block_timestamp (timestamp) TYPE minmax GRANULARITY 8192,
+    INDEX idx_contract_transaction_hash (transaction_hash) TYPE minmax GRANULARITY 8192,
+    INDEX idx_contract_id (id) TYPE minmax GRANULARITY 8192
 ) ENGINE = ReplacingMergeTree()
 ORDER BY (id);

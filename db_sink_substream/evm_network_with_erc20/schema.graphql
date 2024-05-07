@@ -1,0 +1,18 @@
+type Account @entity {
+  id: ID!
+  balances: [Balance!]! @derivedFrom(field: "owner")
+}
+
+type Token @entity {
+  id: ID!
+  name: String!
+  decimals: BigInt!
+  symbol: String!
+}
+
+type Balance @entity {
+  id: ID!
+  token: Token!
+  owner: Account!
+  balance: BigInt!
+}

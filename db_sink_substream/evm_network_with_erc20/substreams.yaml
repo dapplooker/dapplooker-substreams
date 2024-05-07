@@ -1,0 +1,54 @@
+specVersion: v0.1.0
+package:
+  name: erc20
+  version: v0.4.0
+  url: https://github.com/GundamDweeb/substreams-erc20
+  doc: ERC-20
+
+imports:
+  entities_change: https://github.com/streamingfast/substreams-sink-entity-changes/releases/download/v1.3.0/substreams-sink-entity-changes-v1.3.0.spkg
+  database_change: https://github.com/streamingfast/substreams-sink-database-changes/releases/download/v1.2.0/substreams-database-change-v1.2.0.spkg
+
+network: arbitrum
+
+binaries:
+  default:
+    type: wasm/rust-v1
+    file: ./target/wasm32-unknown-unknown/release/erc20.wasm
+
+protobuf:
+  files:
+    - erc20.proto
+  importPaths:
+    - ./proto/v1
+
+modules:
+  - name: map_block
+    kind: map
+    initialBlock: 0
+    doc: Storage changes from 'transfer' and 'transferFrom' functions.
+    inputs:
+      - source: sf.ethereum.type.v2.Block
+    output:
+      type: proto:erc20.types.v1.BalanceChanges
+
+  - name: store_tokens
+    kind: store
+    initialBlock: 0
+    updatePolicy: set_if_not_exists
+    valueType: string
+    inputs:
+      - map: map_block
+
+
+  - name: db_out
+    kind: map
+    initialBlock: 0
+    inputs:
+      - source: sf.ethereum.type.v2.Block
+      - map: map_block
+      - store: store_tokens
+      
+    output:
+      type: proto:sf.substreams.sink.database.v1.DatabaseChanges
+      

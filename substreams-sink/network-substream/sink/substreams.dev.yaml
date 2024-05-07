@@ -1,0 +1,17 @@
+specVersion: v0.1.0
+package:
+  name: "substreams_postgresql_sink_tutorial"
+  version: v0.1.0
+
+imports:
+  sql: https://github.com/streamingfast/substreams-sink-sql/releases/download/protodefs-v1.0.1/substreams-sink-sql-protodefs-v1.0.1.spkg
+  main: ../substreams.yaml
+
+network: "polygon"
+
+sink:
+  module: main:db_out
+  type: sf.substreams.sink.sql.v1.Service
+  config:
+    schema: "../../schemas/eth-block-meta/schema.sql"
+    wire_protocol_access: true

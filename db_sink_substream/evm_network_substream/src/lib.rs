@@ -107,7 +107,7 @@ fn db_out(blk: eth::Block) -> Result<DatabaseChanges, substreams::errors::Error>
             add_trx_info_entity(&mut tables, &trx, block_number, time_stamp);
             let contract_check = String::from_utf8_lossy(&trx.input).to_string();
             // Check for contract creation and store the data
-            if contract_check.starts_with("`�`@R") && base_64_to_hex(trx.to.clone()) != "0x0000000000000000000000000000000000000000"  {
+            if contract_check.starts_with("`�`@R") && base_64_to_hex(trx.to.clone()) != "0x"  {
             	add_contracts_info_entity(&mut tables, &trx, block_number, time_stamp);
 			}
         }

@@ -1,4 +1,4 @@
-DSN ?= clickhouse://default:@localhost:9000/erc20
+DSN ?= clickhouse://default:@localhost:9000/ethereum
 ENDPOINT ?= mainnet.eth.streamingfast.io:443
 
 
@@ -37,10 +37,26 @@ run:
 stream_db_out: build
 	substreams run -e $(ENDPOINT) substreams.yaml db_out -s 821418 -o json
 
-.PHONY: create_clickhouse_db
-create_clickhouse_db: 
-	substreams-sink-sql setup "$(DSN)" sink/substreams-clickhouse.dev.yaml	
+.PHONY: create_clickhouse_db_ethereum
+create_clickhouse_db_ethereum: 
+	substreams-sink-sql setup "$(DSN)" manifest/sink_eth.yaml
 
-.PHONY: sink_clickhouse_db_out
-sink_clickhouse_db_out: build
+.PHONY: create_clickhouse_db_bnb
+create_clickhouse_db_bnb: 
+	substreams-sink-sql setup "$(DSN)" manifest/sink_bnb.yaml
+
+.PHONY: create_clickhouse_db_polygon
+create_clickhouse_db_polygon: 
+	substreams-sink-sql setup "$(DSN)" manifest/sink_polygon.yaml			
+
+.PHONY: sink_clickhouse_db_out_ethreum
+sink_clickhouse_db_out_ethreum: build
 	substreams-sink-sql run -e ${ENDPOINT} --on-module-hash-mistmatch=warn --flush-interval 1 "$(DSN)" manifest/sink_eth.yaml 821418: --undo-buffer-size 10
+
+.PHONY: sink_clickhouse_db_out_bnb
+sink_clickhouse_db_out_bnb: build
+	substreams-sink-sql run -e ${ENDPOINT} --on-module-hash-mistmatch=warn --flush-interval 1 "$(DSN)" manifest/sink_bnb.yaml 821418: --undo-buffer-size 10
+
+.PHONY: sink_clickhouse_db_out_polygon
+sink_clickhouse_db_out_polygon: build
+	substreams-sink-sql run -e ${ENDPOINT} --on-module-hash-mistmatch=warn --flush-interval 1 "$(DSN)" manifest/sink_polygon.yaml 821418: --undo-buffer-size 10

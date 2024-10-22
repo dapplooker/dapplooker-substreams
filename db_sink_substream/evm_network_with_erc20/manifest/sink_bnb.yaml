@@ -13,5 +13,5 @@ sink:
   module: main:db_out
   type: sf.substreams.sink.sql.v1.Service
   config:
-    schema: "./schema/create_tables_bnb_clickhouse.sql"
+    schema: "../schema/create_tables_bnb_clickhouse.sql"
     wire_protocol_access: true

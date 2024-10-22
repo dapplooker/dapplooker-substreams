@@ -1,0 +1,17 @@
+specVersion: v0.1.0
+package:
+  name: "erc20_tokens_substreams"
+  version: v0.1.0
+
+imports:
+  sql: https://github.com/streamingfast/substreams-sink-sql/releases/download/protodefs-v1.0.1/substreams-sink-sql-protodefs-v1.0.1.spkg
+  main: ../substreams.yaml
+
+network: "mainnet"
+
+sink:
+  module: main:db_out
+  type: sf.substreams.sink.sql.v1.Service
+  config:
+    schema: "./schema/create_tables_eth_clickhouse.sql"
+    wire_protocol_access: true

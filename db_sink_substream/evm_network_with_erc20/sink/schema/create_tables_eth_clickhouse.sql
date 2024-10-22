@@ -1,8 +1,8 @@
 -- Create schema
-CREATE DATABASE IF NOT EXISTS bnb_network;
+CREATE DATABASE IF NOT EXISTS ethereum;
 
 -- Create cursors table
-CREATE TABLE IF NOT EXISTS bnb_network.cursors (
+CREATE TABLE IF NOT EXISTS ethereum.cursors (
     id        String NOT NULL,
     cursor    String,
     block_num Int64,
@@ -11,19 +11,19 @@ CREATE TABLE IF NOT EXISTS bnb_network.cursors (
     PRIMARY KEY (id)
     ORDER BY (id);
 
-CREATE TABLE IF NOT EXISTS bnb_network.token (
+CREATE TABLE IF NOT EXISTS ethereum.token (
     name           String,
     decimals           String,
     symbol           String,
 ) ENGINE = ReplacingMergeTree()
 ORDER BY (name);
 
-CREATE TABLE IF NOT EXISTS bnb_network.account (
+CREATE TABLE IF NOT EXISTS ethereum.account (
     account           String,
 ) ENGINE = ReplacingMergeTree()
 ORDER BY (account);
 
-CREATE TABLE IF NOT EXISTS bnb_network.balance (  
+CREATE TABLE IF NOT EXISTS ethereum.balance (  
     token           FixedString(85),
     owner           FixedString(42),
     balance         String
@@ -31,7 +31,7 @@ CREATE TABLE IF NOT EXISTS bnb_network.balance (
 ORDER BY (token);
 
 -- Create blocks table
-CREATE TABLE IF NOT EXISTS bnb_network.blocks (
+CREATE TABLE IF NOT EXISTS ethereum.blocks (
     id          Int32 NOT NULL,
     hash        FixedString(66),
     parent_hash FixedString(66),
@@ -46,7 +46,7 @@ CREATE TABLE IF NOT EXISTS bnb_network.blocks (
 ORDER BY (id);
 
 -- Create transactions table
-CREATE TABLE IF NOT EXISTS bnb_network.transactions (
+CREATE TABLE IF NOT EXISTS ethereum.transactions (
     id                       FixedString(66) NOT NULL,
     status                   FixedString(1),
     amount                   Float64,
@@ -68,7 +68,7 @@ ORDER BY (id);
 
 
 -- Create contracts table
-CREATE TABLE IF NOT EXISTS bnb_network.contracts (
+CREATE TABLE IF NOT EXISTS ethereum.contracts (
     id               FixedString(42) NOT NULL,
     block_number     Int64,
     owner            FixedString(42),

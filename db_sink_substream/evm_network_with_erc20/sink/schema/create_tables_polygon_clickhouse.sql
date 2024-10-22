@@ -8,8 +8,8 @@ CREATE TABLE IF NOT EXISTS polygon_network.cursors (
     block_num Int64,
     block_id  String
 ) ENGINE = ReplacingMergeTree()
-PRIMARY KEY (id)
-ORDER BY (id);
+    PRIMARY KEY (id)
+    ORDER BY (id);
 
 CREATE TABLE IF NOT EXISTS polygon_network.token (
     name           String,
@@ -19,12 +19,12 @@ CREATE TABLE IF NOT EXISTS polygon_network.token (
 ORDER BY (name);
 
 CREATE TABLE IF NOT EXISTS polygon_network.account (
-    account           FixedString(42),
+    account           String,
 ) ENGINE = ReplacingMergeTree()
 ORDER BY (account);
 
 CREATE TABLE IF NOT EXISTS polygon_network.balance (  
-    token           FixedString(81),
+    token           FixedString(85),
     owner           FixedString(42),
     balance         String
 ) ENGINE = ReplacingMergeTree()
@@ -52,14 +52,14 @@ CREATE TABLE IF NOT EXISTS polygon_network.transactions (
     amount                   Float64,
     gas_used                 Int64,
     gas_limit                Int64,
-    block_number            Int64,
-    gas_price               Int64,
-    timestamp               DateTime,
-    to_address              FixedString(42),
-    from_address            FixedString(42),
-    max_fee_per_gas         Int64,
+    block_number             Int64,
+    gas_price                Int64,
+    timestamp                DateTime,
+    to_address               FixedString(42),
+    from_address             FixedString(42),
+    max_fee_per_gas          Int64,
     max_priority_fee_per_gas Int64,
-    nonce                   String,
+    nonce                    String,
     INDEX idx_eth_tx_block_number  (block_number) TYPE minmax GRANULARITY 8192,
     INDEX idx_eth_tx_block_timestamp  (timestamp) TYPE minmax GRANULARITY 8192,
     INDEX idx_eth_tx_nonce  (nonce) TYPE minmax GRANULARITY 8192

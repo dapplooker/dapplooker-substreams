@@ -47,7 +47,11 @@ create_clickhouse_db_bnb:
 
 .PHONY: create_clickhouse_db_polygon
 create_clickhouse_db_polygon: 
-	substreams-sink-sql setup "$(DSN)" manifest/sink_polygon.yaml			
+	substreams-sink-sql setup "$(DSN)" manifest/sink_polygon.yaml	
+
+.PHONY: create_clickhouse_db_arbitrum
+create_clickhouse_db_arbitrum: 
+	substreams-sink-sql setup "$(DSN)" manifest/sink_arbitrum.yaml		
 
 .PHONY: sink_clickhouse_db_out_ethreum
 sink_clickhouse_db_out_ethreum: build
@@ -60,3 +64,7 @@ sink_clickhouse_db_out_bnb: build
 .PHONY: sink_clickhouse_db_out_polygon
 sink_clickhouse_db_out_polygon: build
 	substreams-sink-sql run -e ${ENDPOINT} --on-module-hash-mistmatch=warn --flush-interval 1 "$(DSN)" manifest/sink_polygon.yaml 821418: --undo-buffer-size 10
+
+.PHONY: sink_clickhouse_db_out_arbitrum
+sink_clickhouse_db_out_arbitrum: build
+	substreams-sink-sql run -e ${ENDPOINT} --on-module-hash-mistmatch=warn --flush-interval 1 "$(DSN)" manifest/sink_arbitrum.yaml 821418: --undo-buffer-size 10
